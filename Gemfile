@@ -16,7 +16,6 @@ gem "database_cleaner", ">= 0.8.0", :group => :test
 gem "launchy", ">= 2.1.0", :group => :test
 gem "devise", ">= 2.1.0"
 gem "cancan", ">= 1.6.7"
-gem "rolify", ">= 3.1.0"
 gem "bootstrap-sass", ">= 2.0.3"
 gem "simple_form"
 gem "rails-footnotes", ">= 3.7", :group => :development
