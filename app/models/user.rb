@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   
   scope :admins, :conditions => { :role => :admin }
   scope :students, :conditions => { :role => :student }
+  scope :teachers, :conditions => { :role => :teacher }
   
   
 end
