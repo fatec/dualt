@@ -12,7 +12,7 @@
 # Attention.. les accents ne marchent pas pour l"instant.. vais chercher pourquoi plus tard
 # Ok trouvé une solution.. il faut mettre encoding UTF-8 en haut du document
 puts 'Création des utilisateurs'
-user1 = User.create!(first_name: "Paul", last_name: "Dupont", email: "Paul@test.com", password: "test", password_confirmation: "test", role: :student)
+user1 = User.create(first_name: "Paul", last_name: "Dupont", email: "Paul@test.com", password: "test", password_confirmation: "test", role: :student)
 user2 = User.create(first_name: "Pierre", last_name: "Dupont", email: "Pierre@test.com", password: "test", password_confirmation: "test", role: :student)
 user3 = User.create(first_name: "Julie", last_name: "Dupont", email: "Julie@test.com", password: "test", password_confirmation: "test", role: :student)
 user4 = User.create(first_name: "Jeanne", last_name: "Dupont", email: "Jeanne@test.com", password: "test", password_confirmation: "test", role: :student)
@@ -29,12 +29,12 @@ class2 = Classroom.create(name: "classe 2")
 class3 = Classroom.create(name: "classe 3")
 
 
-inscription1 = Inscription.create(user: user1, classroom: class1)
-inscription2 = Inscription.create(user: user2, classroom: class3)
-inscription3 = Inscription.create(user: user3, classroom: class1)
-inscription4 = Inscription.create(user: user4, classroom: class1)
-inscription5 = Inscription.create(user: user5, classroom: class2)
-inscription6 = Inscription.create(user: user6, classroom: class2)
+inscription1 = Inscription.create(user: user1, year: "2012" , classroom: class1)
+inscription2 = Inscription.create(user: user2, year: "2012" , classroom: class3)
+inscription3 = Inscription.create(user: user3, year: "2012" , classroom: class1)
+inscription4 = Inscription.create(user: user4, year: "2012" , classroom: class1)
+inscription5 = Inscription.create(user: user5, year: "2012" , classroom: class2)
+inscription6 = Inscription.create(user: user6, year: "2012" , classroom: class2)
 
 
 
@@ -118,14 +118,14 @@ capacity53 = Capacity.create(name: "Prend congé en s'assurant du suivi donné (
 
 
 puts 'Création des contextes'
-context1 = Context.create(name: "contexte 1", competence: competence3 , classroom: class1 , user: teacher1)
-context2 = Context.create(name: "contexte 2", competence: competence2 , classroom: class1 , user: teacher2 )
-context3 = Context.create(name: "contexte 3", competence: competence3 , classroom: class3  , user: teacher2)
-context4 = Context.create(name: "contexte 4", competence: competence1 , classroom: class1  , user: teacher1 )
-context5 = Context.create(name: "contexte 5", competence: competence1 , classroom: class2  , user: teacher3 )
-context6 = Context.create(name: "contexte 6", competence: competence2 , classroom: class1  , user: teacher1)
-context7 = Context.create(name: "contexte 7", competence: competence1 , classroom: class2 , user: teacher2)
-context8 = Context.create(name: "contexte 8", competence: competence3 , classroom: class1  , user: teacher3 )
+context1 = Context.create(name: "contexte 1", competence: competence3 , classroom: class1 , teacher_id: teacher1)
+context2 = Context.create(name: "contexte 2", competence: competence2 , classroom: class1 , teacher_id: teacher2 )
+context3 = Context.create(name: "contexte 3", competence: competence3 , classroom: class3  , teacher_id: teacher2)
+context4 = Context.create(name: "contexte 4", competence: competence1 , classroom: class1  , teacher_id: teacher1 )
+context5 = Context.create(name: "contexte 5", competence: competence1 , classroom: class2  , teacher_id: teacher3 )
+context6 = Context.create(name: "contexte 6", competence: competence2 , classroom: class1  , teacher_id: teacher1)
+context7 = Context.create(name: "contexte 7", competence: competence1 , classroom: class2 , teacher_id: teacher2)
+context8 = Context.create(name: "contexte 8", competence: competence3 , classroom: class1  , teacher_id: teacher3 )
 
 puts 'Création des notes'
 note1 = Note.create(user: user1, context: user1.classrooms.first.contexts.first, note_eleve:3)

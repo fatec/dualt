@@ -4,7 +4,8 @@ describe User do
   
   before(:each) do
     @attr = { 
-      :name => "Example User",
+      :first_name => "Example",
+      :last_name => "User",
       :email => "user@example.com",
       :password => "foobar",
       :password_confirmation => "foobar"
@@ -77,7 +78,7 @@ describe User do
     end
     
     it "should reject short passwords" do
-      short = "a" * 5
+      short = "a" * 2
       hash = @attr.merge(:password => short, :password_confirmation => short)
       User.new(hash).should_not be_valid
     end

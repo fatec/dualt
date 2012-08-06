@@ -3,7 +3,31 @@ class UsersController < ApplicationController
 
   def index
     authorize! :index, @user, :message => 'Not authorized as an administrator.'
-    @users = User.all
+
+    # Si Prof
+    # => Ajouter une compétence
+    # => Voir toutes ses compétences
+    # => Voir la liste des classes
+    # => Gérer les notes
+    if @current_user.teacher
+      @users = User.teachers
+
+      # Si Elève
+      # => Bilan
+    elsif @current_user.student      
+      @users = User.students
+      if !current_user.current_classroom.nil?
+        @competences = current_user.current_classroom.competences
+      else
+        @competences = []
+      end
+
+      # Sinon.. afficher une page pour demander d'ajouter la personne dans une classe
+    else
+
+
+    end 
+
   end
 
   def show

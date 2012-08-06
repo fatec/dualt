@@ -9,6 +9,7 @@ class Classroom < ActiveRecord::Base
   has_many :users, :through => :inscriptions
 
   attr_accessible :name
+  validates_presence_of :name
 
   # ajouter la fonction tested_competences pour trouver toutes les compétences testées d'une classe
   # comme ca ensuite on peut trouver tous les contextes pour chaque competence testée

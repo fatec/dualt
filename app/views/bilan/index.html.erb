@@ -1,0 +1,40 @@
+<h1>Bienvenue <%= @current_user.name %>!!!</h1>
+
+
+<% if @current_user.teacher %>
+<p>Bilan commme les étudiants mais avec des liens en plus et une banderole prof?..</p>
+<% elsif @current_user.student %>
+
+
+
+
+<table class="table table-striped" id="sortTable">
+  <thead>
+    <tr>
+      <th class="blue header">Compétence</th>
+      <th class=" header"></th>
+      <th class=" header"></th>
+      <th class=" header"></th>
+      <th class=" header"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @competences.each do |competence| %>
+    <tr>
+      <td><%= link_to competence.name, bilan_path(competence.contexts.first) %></td>
+      <td><span class="label"><%= competence.bilan_note_eleve(current_user)[0] %></span> </td>
+      <td> <span class="label success"><%= competence.bilan_note_eleve(current_user)[1] %></span>   </td>
+      <td> <span class="label warning"><%= competence.bilan_note_eleve(current_user)[2] %></span>   </td>
+      <td>  <span class="label important"><%= competence.bilan_note_eleve(current_user)[3] %></span>    </td>
+
+    </tr>
+    <% end %>
+
+  </tbody>
+</table>
+
+
+
+<% else %>
+ Ne devrait pas s'afficher.. ? (bilan#index pour pour une personne non connectée..)
+<% end %>

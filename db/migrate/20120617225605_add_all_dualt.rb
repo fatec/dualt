@@ -1,22 +1,22 @@
 class AddAllDualt < ActiveRecord::Migration
   def up
     create_table "capacities", :force => true do |t|
-       t.string   "name"
-       t.integer  "competence_id"
-       t.datetime "created_at",    :null => false
-       t.datetime "updated_at",    :null => false
+       t.string   "name",           :null => false
+       t.integer  "competence_id",  :null => false
+       t.datetime "created_at",     :null => false
+       t.datetime "updated_at",     :null => false
      end
 
      add_index "capacities", ["competence_id"], :name => "index_capacities_on_competence_id"
 
      create_table "classrooms", :force => true do |t|
-       t.string   "name"
+       t.string   "name",       :null => false
        t.datetime "created_at", :null => false
        t.datetime "updated_at", :null => false
      end
 
      create_table "competences", :force => true do |t|
-       t.string   "name"
+       t.string   "name",       :null => false
        t.datetime "created_at", :null => false
        t.datetime "updated_at", :null => false
        t.text     "detail"
@@ -24,20 +24,20 @@ class AddAllDualt < ActiveRecord::Migration
      end
 
      create_table "contexts", :force => true do |t|
-       t.string   "name"
-       t.integer  "competence_id"
-       t.datetime "created_at",    :null => false
-       t.datetime "updated_at",    :null => false
-       t.integer  "classroom_id"
-       t.integer  "teacher_id"
+       t.string   "name",           :null => false
+       t.integer  "competence_id",  :null => false
+       t.datetime "created_at",     :null => false
+       t.datetime "updated_at",     :null => false
+       t.integer  "classroom_id",   :null => false
+       t.integer  "teacher_id",     :null => false
      end
 
      add_index "contexts", ["competence_id"], :name => "index_contexts_on_competence_id"
 
      create_table "inscriptions", :force => true do |t|
-       t.string   "year"
-       t.integer  "student_id"
-       t.integer  "classroom_id"
+       t.string   "year",         :null => false
+       t.integer  "student_id",   :null => false
+       t.integer  "classroom_id", :null => false
        t.datetime "created_at",   :null => false
        t.datetime "updated_at",   :null => false
      end
@@ -46,13 +46,13 @@ class AddAllDualt < ActiveRecord::Migration
      add_index "inscriptions", ["student_id"], :name => "index_inscriptions_on_student_id"
 
      create_table "notes", :force => true do |t|
-       t.integer  "note_eleve"
-       t.integer  "student_id"
-       t.integer  "context_id"
+       t.integer  "note_eleve", :default => 0
+       t.integer  "student_id", :null => false
+       t.integer  "context_id", :null => false
        t.datetime "created_at", :null => false
        t.datetime "updated_at", :null => false
        t.text     "comment"
-       t.integer  "note_prof"
+       t.integer  "note_prof",  :default => 0
      end
 
      add_index "notes", ["context_id"], :name => "index_notes_on_context_id"

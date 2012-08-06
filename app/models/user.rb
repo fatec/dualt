@@ -16,27 +16,39 @@ class User < ActiveRecord::Base
     has_many :notes
   #  has_one :context, :through => :notes
 
-    def is_admin?
-      #TODO retourner oui s'il est admin... on l'avait deviné!
-      true
-    end
+ 
 
-  #  before_save :cleanup
+  def current_classroom
+    self.classrooms.first
+  end
 
-    def current_classroom
-      self.classrooms.first
-    end
+  def name
+    "#{first_name} #{last_name}"
+  end
 
-    def name
-      "#{first_name} #{last_name}"
-    end
-  
-  
+
+
+  def teacher
+    return self.role == "teacher"
+  end
+
+  def teachers
+    return User.where(:role => "teacher")
+  end  
+
+  def students
+    return User.where(:role => "student")
+  end  
+
+  def student
+    return self.role == "student"
+  end
+
   
   def has_role?(role)
     return self.role == role
   end
-  
+
 
   
   scope :admins, :conditions => { :role => :admin }

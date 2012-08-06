@@ -1,0 +1,17 @@
+<p><%= link_to "Retour au bilan", bilan_index_path %></p>
+  
+<p>Contexte actif <%= @context.name %></p>
+<p>Note élève : <%= @note.note_eleve %></p>
+<p>Note prof : <%= @note.note_prof %></p>
+<p>Commentaire élève : <%= @note.comment %></p>
+
+<p>Compétence <%= @context.competence.name %> </p>
+<p>liste des contextes</p>
+<ul class="pills">
+     <% @contexts.each do |context| %>
+      <li <% if @context == context%> class="active"<%	 end %> >
+        <%= link_to context.name, bilan_path(context) %>
+      </li>
+     <% end %>
+</ul>
+  

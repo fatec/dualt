@@ -5,6 +5,9 @@ class Competence < ActiveRecord::Base
   
   attr_accessible :name
 
+  validates_presence_of :name
+#  validates :name, :presence => true
+
   def bilan_note_eleve(user)
     # on compte combien de chaque type de note
     # pour chaque contexte
@@ -12,7 +15,7 @@ class Competence < ActiveRecord::Base
     user.classrooms.first.competences.find(self).contexts.each do |context|
       # pour chaque contexte récupérer la note de l'élève
       # si note n'existe pas creer l'objet et donner 0 a note_eleve
-      note = context.notes.find_or_initialize_by_user_id(user)   do |n|
+      note = context.notes.find_or_initialize_by_student_id(user)   do |n|
         n.note_eleve = 0
       end
       note.save!
