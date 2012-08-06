@@ -2,6 +2,13 @@
   
 <p>Contexte actif <%= @context.name %></p>
 <p>Note élève : <%= @note.note_eleve %></p>
+<%= form_for(@note, :url => bilan_path(@context)) do |f|%>
+<p>
+  <%= f.label :note_eleve, "Note élève" %> 
+  <%= f.text_field :note_eleve, :size => 2 %>
+  <%= submit_tag("Mettre à jour") %>
+</p>
+<% end %>
 <p>Note prof : <%= @note.note_prof %></p>
 <p>Commentaire élève : <%= @note.comment %></p>
 

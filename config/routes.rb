@@ -3,7 +3,7 @@ DualtRails3BootstrapDeviseCancan::Application.routes.draw do
   
   devise_for :users
   resources :users, :only => [:show, :index]
-  resources :bilan, :only => [:show, :index]
+  resources :bilan, :only => [:show, :index, :update]
 
   namespace :admin do 
     get '', to: 'dashboard#index', as: '/'

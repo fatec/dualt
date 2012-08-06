@@ -22,6 +22,12 @@ def create_user
   @user = FactoryGirl.create(:user, email: @visitor[:email])
 end
 
+def create_special_user(role = nil)
+  create_visitor
+  delete_user
+  @user = FactoryGirl.create(:user, email: @visitor[:email], role: role)
+end
+
 def delete_user
   @user ||= User.first conditions: {:email => @visitor[:email]}
   @user.destroy unless @user.nil?
@@ -48,6 +54,11 @@ end
 ### GIVEN ###
 Given /^I am not logged in$/ do
   visit '/users/sign_out'
+end
+
+Given /^I am logged in as (.+)$/ do |status|
+  create_special_user(status)
+  sign_in
 end
 
 Given /^I am logged in$/ do
