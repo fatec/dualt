@@ -43,7 +43,8 @@ class BilanController < ApplicationController
         if @note.nil?
           @note = Note.create(user: current_user, context: @context)
         end
-        
+        #@comment = @note.comments.build(:note_id => @note.id)
+        @comment = Comment.new( :note => @note, :author_id => current_user.id )
       end
       
       
@@ -64,6 +65,8 @@ class BilanController < ApplicationController
       end
     end
   end
+  
+
   
   
 end

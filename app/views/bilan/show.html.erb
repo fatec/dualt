@@ -10,7 +10,25 @@
 </p>
 <% end %>
 <p>Note prof : <%= @note.note_prof %></p>
-<p>Commentaire élève : <%= @note.comment %></p>
+
+<p>Commentaires</p>
+
+<% if (@note.comments.count > 0) %>
+<% @note.comments.each do |comment| %>
+<p><%= comment.comment %> (auteur <%= User.find(comment.author_id).name%>)</p>
+<% end %>
+<% end %>
+
+
+
+<%= form_for(@comment) do |f|%>
+<p>
+  <%= f.hidden_field :note_id %>  
+  <%= f.hidden_field :author_id %>
+  <%= f.text_area :comment, :size => "60x12" %>
+  <%= submit_tag("Sauver") %>
+</p>
+<% end %>
 
 <p>Compétence <%= @context.competence.name %> </p>
 <p>liste des contextes</p>
