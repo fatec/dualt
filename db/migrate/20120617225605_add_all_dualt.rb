@@ -65,11 +65,11 @@ class AddAllDualt < ActiveRecord::Migration
   end
 
   def down
-    drop table :inscriptions
-    drop table :contexts
-    drop table :notes
-    drop table :competences
-    drop table :classrooms
-    drop table :capacities
+    drop_table :inscriptions
+    drop_table :contexts
+    drop_table :notes
+    drop_table :competences
+    drop_table :classrooms
+    drop_table :capacities
   end
 end

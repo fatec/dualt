@@ -25,7 +25,7 @@ end
 def create_special_user(role = nil)
   create_visitor
   delete_user
-  @user = FactoryGirl.create(:user, email: @visitor[:email], role: role)
+#  @user = FactoryGirl.create(:user, email: @visitor[:email], role: role)
 end
 
 def delete_user

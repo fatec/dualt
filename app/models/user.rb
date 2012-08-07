@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
     has_many :inscriptions, :foreign_key => "student_id"
     has_many :classrooms, :through => :inscriptions
 
+    #has_many :contexts, Context.where()
+    
 
     has_many :notes
   #  has_one :context, :through => :notes

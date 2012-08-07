@@ -3,6 +3,7 @@ class Note < ActiveRecord::Base
   belongs_to :user     , :foreign_key => "student_id"
   belongs_to :context   , :foreign_key => "context_id"
   has_one :competence   , :through => :context
+  has_many :comments
   
   attr_accessible :user, :context, :note_eleve
   

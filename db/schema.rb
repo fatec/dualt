@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120617225605) do
+ActiveRecord::Schema.define(:version => 20120807074329) do
 
   create_table "capacities", :force => true do |t|
     t.string   "name",          :null => false
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(:version => 20120617225605) do
 
   create_table "classrooms", :force => true do |t|
     t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "comments", :force => true do |t|
+    t.text     "comment",    :null => false
+    t.integer  "note_id",    :null => false
+    t.integer  "author_id",  :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -64,7 +72,6 @@ ActiveRecord::Schema.define(:version => 20120617225605) do
     t.integer  "context_id",                :null => false
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
-    t.text     "comment"
     t.integer  "note_prof",  :default => 0
   end
 

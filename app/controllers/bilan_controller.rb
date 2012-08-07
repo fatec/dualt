@@ -31,7 +31,7 @@ class BilanController < ApplicationController
       
       @context = Context.find(params[:id])
       
-      classe_eleve = current_user.classrooms.first.id 
+      classe_eleve = current_user.current_classroom.id 
       classe_du_contexte = @context.classroom_id
       
       if  classe_eleve != classe_du_contexte

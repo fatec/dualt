@@ -127,8 +127,15 @@ context6 = Context.create(name: "contexte 6", competence: competence2 , classroo
 context7 = Context.create(name: "contexte 7", competence: competence1 , classroom: class2 , teacher_id: teacher2)
 context8 = Context.create(name: "contexte 8", competence: competence3 , classroom: class1  , teacher_id: teacher3 )
 
-puts 'Création des notes'
-note1 = Note.create(user: user1, context: user1.classrooms.first.contexts.first, note_eleve:3)
-note2 = Note.create(user: user2, context: user2.classrooms.first.contexts.first, note_eleve:2)
-note3 = Note.create(user: user3, context: user3.classrooms.first.contexts.first, note_eleve:1)
-note4 = Note.create(user: user4, context: user4.classrooms.first.contexts.first, note_eleve:3)
+
+
+#puts 'Création des notes'
+#note1 = Note.create(user: user1, context: user1.classrooms.first.contexts.first, note_eleve:3,)
+#note2 = Note.create(user: user2, context: user2.classrooms.first.contexts.first, note_eleve:2)
+#note3 = Note.create(user: user3, context: user3.classrooms.first.contexts.first, note_eleve:1)
+#note4 = Note.create(user: user4, context: user4.classrooms.first.contexts.first, note_eleve:3)
+
+
+
+#puts 'Création de commentaires'
+#comment1 = Comment.create(note: note1, comment:, author:user1)
