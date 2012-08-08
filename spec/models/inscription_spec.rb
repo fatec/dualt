@@ -7,7 +7,7 @@ describe Inscription do
   end
   
   it "fails if student is in two different classroom in the same year"do
-    student = FactoryGirl.create(:student)
+    student = FactoryGirl.create(:user, :role =>"student")
     classroom1 = FactoryGirl.create(:classroom)
     classroom2 = FactoryGirl.create(:classroom)
     FactoryGirl.create(:inscription, :year => 2012, :student_id => student.id, :classroom_id => classroom1.id)

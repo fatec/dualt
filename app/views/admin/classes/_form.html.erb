@@ -1,0 +1,22 @@
+<%= form_for([:admin,@classe]) do |f| %>
+  <% if @classe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@classe.errors.count, "error") %> prohibited this classroom from being saved:</h2>
+      <p><%= debug(params) %></p>
+
+      <ul>
+      <% @classe.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :nom %><br />
+    <%= f.text_field :name %><br />
+    <%= submit_tag("Sauver") %>
+  </p>
+  
+
+<% end %>

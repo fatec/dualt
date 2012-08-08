@@ -13,11 +13,9 @@
 
 <p>Commentaires</p>
 
-<% if (@note.comments.count > 0) %>
-<% @note.comments.each do |comment| %>
-<p><%= comment.comment %> (auteur <%= User.find(comment.author_id).name%>)</p>
-<% end %>
-<% end %>
+
+<%= render(@note.comments) || 'There are no comments.' %>
+
 
 
 

@@ -1,0 +1,29 @@
+<h1>Liste des contextes</h1>
+
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Compétence</th>
+    <th>Classe</th>
+    <th>Enseignant</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @contexts.each do |context| %>
+  <tr>
+    <td><%= context.name %></td>
+    <td><%= context.competence.nil? ? "nil" : context.competence.name %></td>
+    <td><%= context.classroom.nil? ? "nil" : context.classroom.name %></td>
+    <td><%= context.teacher.nil? ? "nil" : context.teacher.name %></td>
+    <td><%= link_to 'Show', admin_context_path(context) %></td>
+    <td><%= link_to 'Edit', edit_admin_context_path(context) %></td>
+    <td><%= link_to 'Destroy', admin_context_path(context), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Ajouter un contexte', new_admin_context_path %> | <%= link_to "Retour à l'administration", admin_path %>

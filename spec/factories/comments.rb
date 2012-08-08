@@ -2,8 +2,7 @@
 
 FactoryGirl.define do
   factory :comment do
-    note_eleve  {Random.new.rand(0..2)}
-    note_prof   {Random.new.rand(0..2)}
+    comment { Faker::Lorem.sentence[0] }
     author_id  {FactoryGirl.create(:context).id}
     note_id    {FactoryGirl.create(:note).id}
   end

@@ -12,21 +12,5 @@ FactoryGirl.define do
     # confirmed_at Time.now
   end
   
-  
-  factory :teacher, parent: :user do |u|
-    u.role "teacher"
-  end
-  
-  factory :student, parent: :user do |u|
-    u.role "student"
-  end
-  
-  factory :user_no_role, parent: :user do |u|
-    u.role ""
-  end
-  
-  factory :user_nil_role, parent: :user do |u|
-    u.role nil
-  end
-  
+ 
 end

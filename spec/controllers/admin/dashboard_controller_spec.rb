@@ -7,7 +7,7 @@ describe Admin::DashboardController do
 
     describe "GET 'index'" do      
       it "returns http success" do
-        teacher = FactoryGirl.create(:teacher)
+        teacher = FactoryGirl.create(:user, :role =>"teacher")
         sign_in teacher
         get :index
         response.should be_success
@@ -22,7 +22,7 @@ describe Admin::DashboardController do
     end
     
     it "redirects student to the root_url" do
-      student = FactoryGirl.create(:student)
+      student = FactoryGirl.create(:user, :role =>"student")
       sign_in student
       get :index
       

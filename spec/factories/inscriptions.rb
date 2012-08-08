@@ -4,7 +4,7 @@ FactoryGirl.define do
   
   factory :inscription do
     year { Time.new.year }
-    student_id {FactoryGirl.create(:student).id}
+    student_id {FactoryGirl.create(:user, :role=>"student").id}
     classroom_id {FactoryGirl.create(:classroom).id}
   end
 

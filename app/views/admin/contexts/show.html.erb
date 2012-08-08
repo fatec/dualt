@@ -1,0 +1,23 @@
+<p>
+  <b>Nom:</b>
+  <%= @context.name %>
+</p>
+
+<p>
+  <b>Classe:</b>
+  <%= @context.classroom.name %>
+</p>
+
+<p>
+  <b>Enseignant:</b>
+  <%= @context.teacher.name %>
+</p>
+
+<p>
+  <b>Compétence:</b>
+  <%= @context.competence.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_context_path(@context) %> |
+<%= link_to 'Back', admin_contexts_path %>

@@ -1,0 +1,25 @@
+<h1>Liste des classes</h1>
+
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Nombre d'élèves</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @classes.each do |classe| %>
+  <tr>
+    <td><%= classe.name %></td>
+    <td><%= classe.students.count %></td>
+    <td><%= link_to 'Show', admin_classroom_path(classe) %></td>
+    <td><%= link_to 'Edit', edit_admin_classroom_path(classe) %></td>
+    <td><%= link_to 'Destroy', admin_classroom_path(classe), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Ajouter une classe', new_admin_classroom_path %> | <%= link_to "Retour à l'administration", admin_path %>

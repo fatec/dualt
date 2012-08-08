@@ -1,0 +1,7 @@
+<div class="comment">
+  <i><%=h User.find(comment.author_id).name %> :</i><br />
+  <%= simple_format h(comment.comment) %>
+  <%= link_to 'Destroy Comment', comment_path(comment),
+    :confirm => 'Are you sure?',
+    :method => :delete if user_signed_in? %>
+</div>
