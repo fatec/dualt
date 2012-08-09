@@ -20,14 +20,16 @@
   </thead>
   <tbody>
     <% @competences.each do |competence| %>
-    <tr>
-      <td><%= link_to competence.name, bilan_path(competence.contexts.first) %></td>
-      <td><span class="label"><%= competence.bilan_note_eleve(current_user)[0] %></span> </td>
-      <td> <span class="label success"><%= competence.bilan_note_eleve(current_user)[1] %></span>   </td>
-      <td> <span class="label warning"><%= competence.bilan_note_eleve(current_user)[2] %></span>   </td>
-      <td>  <span class="label important"><%= competence.bilan_note_eleve(current_user)[3] %></span>    </td>
+    
+    <% bilan = competence.bilan(current_user) %>
+     <tr>
+       <td><%= link_to competence.name, bilan_path(competence.contexts.first) %></td>
+       <td><span class="label"><%= bilan[0] %></span> </td>
+       <td> <span class="label success"><%= bilan[1] %></span>   </td>
+       <td> <span class="label warning"><%= bilan[2] %></span>   </td>
+       <td>  <span class="label important"><%= bilan[3] %></span>    </td>
 
-    </tr>
+     </tr>
     <% end %>
 
   </tbody>
