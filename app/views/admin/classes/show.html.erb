@@ -4,6 +4,15 @@
 </p>
 
 <p>
+  <b>Contextes:</b>
+  <ul>
+  <% @classe.contexts.each do |context| %>
+    <li><%= link_to context.name, admin_context_path(context) %></li>
+  <% end %>
+  </ul>
+</p>
+
+<p>
   <b>Elèves:</b>
   <ul>
   <% @classe.students.each do |student| %>

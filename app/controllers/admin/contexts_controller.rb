@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 class Admin::ContextsController < ApplicationController
   
 
@@ -17,7 +20,8 @@ class Admin::ContextsController < ApplicationController
  # GET /admin/contexts/1.json
  def show
    @context = Context.find(params[:id])
-
+   @notes = @context.initialize_notes
+   
    respond_to do |format|
      format.html # show.html.erb
      format.json { render json: @context }
@@ -93,4 +97,21 @@ class Admin::ContextsController < ApplicationController
       format.json { head :no_content }
     end
   end  
+  
+  
+  # PUT /admin/update_individual_notes/1
+  # PUT /admin/update_individual_notes/1.json
+  def update_individual_notes
+    @notes = Note.update(params[:notes].keys, params[:notes].values).reject { |p| p.errors.empty? }
+      
+    
+    if @notes.empty?
+      flash[:notice] = "Notes updated"
+      redirect_to admin_context_path(params[:id])
+    else
+      flash[:alert] = "Attention certaines notes n'ont pas été mise à jour"
+      redirect_to admin_context_path(params[:id])
+    end
+  end
+  
 end

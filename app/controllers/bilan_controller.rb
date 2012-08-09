@@ -41,7 +41,7 @@ class BilanController < ApplicationController
         
         @note = Note.where("context_id = ? AND student_id = ?", @context, current_user).first
         if @note.nil?
-          @note = Note.create(user: current_user, context: @context)
+          @note = Note.create(student: current_user, context: @context)
         end
         #@comment = @note.comments.build(:note_id => @note.id)
         @comment = Comment.new( :note => @note, :author_id => current_user.id )

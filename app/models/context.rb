@@ -4,6 +4,8 @@ class Context < ActiveRecord::Base
   belongs_to :classroom       , :foreign_key => :classroom_id
 
   has_many :notes
+  accepts_nested_attributes_for :notes
+  
   belongs_to :teacher , :class_name => 'User',            :foreign_key => :teacher_id, :conditions=> 'users.role="teacher"'
   
   
@@ -15,5 +17,18 @@ class Context < ActiveRecord::Base
   
   validates_presence_of :name, :competence_id, :classroom_id, :teacher_id
   validates_associated :competence, :classroom
+  
+  def note_eleve(eleve)
+    self.notes.find_or_create_by_student_id(eleve.id)
+  end
+ 
+  def initialize_notes
+    # Pour chaque eleve de la classe
+    notes = Array.new
+    self.classroom.students.each do |student|
+      notes << note_eleve(student)
+    end
+    return notes
+  end
  
 end

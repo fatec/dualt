@@ -18,6 +18,36 @@
   <%= @context.competence.name %>
 </p>
 
+<p>
+  <b>Elèves:</b>
+  
+  
+  <%= form_tag( update_individual_notes_admin_context_path(@context), {:method => :put} ) do %>
+  <table>
+     <tr>
+       <th>Nom</th>
+       <th>Note</th>
+     </tr>
+     
+    <% for note in @notes %>
+      <%= fields_for "notes[]", note do |f| %>  
+      <tr>
+        <td><%=h note.student.name %></td>
+        <td><%= f.text_field :note_eleve %></td>
+      </tr>
+
+      <% end %>
+    <% end %>
+  </table>
+  <p><%= submit_tag "Mettre à jour les notes" %></p>
+  <% end %>
+  
+    
+
+   
+ 
+</p>
+
 
 <%= link_to 'Edit', edit_admin_context_path(@context) %> |
 <%= link_to 'Back', admin_contexts_path %>

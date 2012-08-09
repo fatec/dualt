@@ -45,7 +45,7 @@ class Admin::ClassesController < ApplicationController
   # POST /admin/contexts
   # POST /admin/contexts.json
   def create
-    @classe = Classroom.new(params[:context])
+    @classe = Classroom.new(params[:classroom])
 
     respond_to do |format|
       if @classe.save

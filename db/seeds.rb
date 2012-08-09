@@ -118,19 +118,19 @@ capacity53 = Capacity.create(name: "Prend congé en s'assurant du suivi donné (
 
 
 puts 'Création des contextes'
-context1 = Context.create(name: "contexte 1", competence: competence3 , classroom: class1 , teacher_id: teacher1)
-context2 = Context.create(name: "contexte 2", competence: competence2 , classroom: class1 , teacher_id: teacher2 )
-context3 = Context.create(name: "contexte 3", competence: competence3 , classroom: class3  , teacher_id: teacher2)
-context4 = Context.create(name: "contexte 4", competence: competence1 , classroom: class1  , teacher_id: teacher1 )
-context5 = Context.create(name: "contexte 5", competence: competence1 , classroom: class2  , teacher_id: teacher3 )
-context6 = Context.create(name: "contexte 6", competence: competence2 , classroom: class1  , teacher_id: teacher1)
-context7 = Context.create(name: "contexte 7", competence: competence1 , classroom: class2 , teacher_id: teacher2)
-context8 = Context.create(name: "contexte 8", competence: competence3 , classroom: class1  , teacher_id: teacher3 )
+context1 = Context.create(name: "contexte 1", competence: competence3 , classroom: class1 , teacher: teacher1)
+context2 = Context.create(name: "contexte 2", competence: competence2 , classroom: class1 , teacher: teacher2 )
+context3 = Context.create(name: "contexte 3", competence: competence3 , classroom: class3  , teacher: teacher2)
+context4 = Context.create(name: "contexte 4", competence: competence1 , classroom: class1  , teacher: teacher1 )
+context5 = Context.create(name: "contexte 5", competence: competence1 , classroom: class2  , teacher: teacher3 )
+context6 = Context.create(name: "contexte 6", competence: competence2 , classroom: class1  , teacher: teacher1)
+context7 = Context.create(name: "contexte 7", competence: competence1 , classroom: class2 , teacher: teacher2)
+context8 = Context.create(name: "contexte 8", competence: competence3 , classroom: class1  , teacher: teacher3 )
 
 
 
 #puts 'Création des notes'
-#note1 = Note.create(user: user1, context: user1.classrooms.first.contexts.first, note_eleve:3,)
+note1 = Note.create(student: user1, context: user1.classrooms.first.contexts.first, note_eleve:3,)
 #note2 = Note.create(user: user2, context: user2.classrooms.first.contexts.first, note_eleve:2)
 #note3 = Note.create(user: user3, context: user3.classrooms.first.contexts.first, note_eleve:1)
 #note4 = Note.create(user: user4, context: user4.classrooms.first.contexts.first, note_eleve:3)

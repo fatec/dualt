@@ -9,10 +9,13 @@ DualtRails3BootstrapDeviseCancan::Application.routes.draw do
   namespace :admin do 
     get '', to: 'dashboard#index', as: '/'
     resources :eleves, :as => "students"
-    resources :contexts
+    resources :contexts do
+        put :update_individual_notes, :on => :member
+    end
     resources :classes, :as => "classrooms"
     resources :competences 
     resources :capacites
+ #   resources :notes, :only => [:update]
   end
 
   
