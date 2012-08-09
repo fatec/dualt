@@ -1,32 +1,22 @@
 <p><%= link_to "Retour au bilan", bilan_index_path %></p>
   
 <p>Contexte actif <%= @context.name %></p>
-<p>Note élève : <%= @note.note_eleve %></p>
+
+
+<p>Note prof : <%= @note.note_prof %></p>
+<p>Commentaire prof : <%= @note.commentaire_prof %></p>
+
+<p>Note elève : <%= @note.note_eleve %></p>
 <%= form_for(@note, :url => bilan_path(@context)) do |f|%>
 <p>
   <%= f.label :note_eleve, "Note élève" %> 
-  <%= f.text_field :note_eleve, :size => 2 %>
+  <%= f.text_field :note_eleve %>
+  <%= f.label :commmentaire_eleve, "Commentaire élève" %> 
+  <%= f.text_area :commentaire_eleve %>
   <%= submit_tag("Mettre à jour") %>
 </p>
 <% end %>
-<p>Note prof : <%= @note.note_prof %></p>
 
-<p>Commentaires</p>
-
-
-<%= render(@note.comments) || 'There are no comments.' %>
-
-
-
-
-<%= form_for(@comment) do |f|%>
-<p>
-  <%= f.hidden_field :note_id %>  
-  <%= f.hidden_field :author_id %>
-  <%= f.text_area :comment, :size => "60x12" %>
-  <%= submit_tag("Sauver") %>
-</p>
-<% end %>
 
 <p>Compétence <%= @context.competence.name %> </p>
 <p>liste des contextes</p>

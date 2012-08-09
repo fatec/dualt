@@ -27,7 +27,9 @@
      <tr>
        <th>Nom</th>
        <th>Note élève</th>
+       <th>commentaire élève</th>
        <th>Note enseignant</th>
+       <th>Commentaire enseignant</th>
      </tr>
      
     <% for note in @notes %>
@@ -35,7 +37,9 @@
       <tr>
         <td><%=h note.student.name %></td>
         <td><%=h note.note_eleve %></td>
+        <td><%=h note.commentaire_eleve %></td>
         <td><%= f.text_field :note_prof %></td>
+        <td><%= f.text_field :commentaire_prof %></td>
       </tr>
 
       <% end %>

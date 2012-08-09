@@ -7,8 +7,9 @@ class Admin::ContextsController < ApplicationController
   # GET /admin/contexts
   # GET /admin/contexts.json
   def index
-    @contexts = Context.all
-
+    @contexts = Context.order(:classroom_id)
+    
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @contexts }

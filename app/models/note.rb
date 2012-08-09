@@ -3,9 +3,27 @@ class Note < ActiveRecord::Base
   belongs_to :student  , :class_name => 'User',    :foreign_key => :student_id, :conditions=> 'users.role="student"'
   belongs_to :context   , :foreign_key => "context_id"
   has_one :competence   , :through => :context
-  has_many :comments
+ # has_many :comments
   
-  attr_accessible :student, :context, :note_eleve, :note_prof
+ # has_many :commentaires_eleve, :class_name => 'Comment'  do 
+ #   def filter(note)
+ #     find(:all, :conditions => {:author_id => note.student})
+ #   end
+ # end
+  
+  
+ # has_many :commentaires_prof, :class_name => 'Comment'  do 
+ #   def filter(note)
+ #     find(:all, :where => {:author_id => note.student})
+ #   end
+ # end
+  
+  
+  
+  
+  
+  
+  attr_accessible :student, :context, :note_eleve, :note_prof, :commentaire_eleve, :commentaire_prof
   
   validates :note_eleve, :note_prof, :numericality => { :only_integer => true , :message => "Seulement un entier"}
   

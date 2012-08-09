@@ -29,12 +29,12 @@ class2 = Classroom.create(name: "classe 2")
 class3 = Classroom.create(name: "classe 3")
 
 
-inscription1 = Inscription.create(user: user1, year: "2012" , classroom: class1)
-inscription2 = Inscription.create(user: user2, year: "2012" , classroom: class3)
-inscription3 = Inscription.create(user: user3, year: "2012" , classroom: class1)
-inscription4 = Inscription.create(user: user4, year: "2012" , classroom: class1)
-inscription5 = Inscription.create(user: user5, year: "2012" , classroom: class2)
-inscription6 = Inscription.create(user: user6, year: "2012" , classroom: class2)
+inscription1 = Inscription.create(student: user1, year: "2012" , classroom: class1)
+inscription2 = Inscription.create(student: user2, year: "2012" , classroom: class3)
+inscription3 = Inscription.create(student: user3, year: "2012" , classroom: class1)
+inscription4 = Inscription.create(student: user4, year: "2012" , classroom: class1)
+inscription5 = Inscription.create(student: user5, year: "2012" , classroom: class2)
+inscription6 = Inscription.create(student: user6, year: "2012" , classroom: class2)
 
 
 

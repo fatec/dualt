@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807074329) do
+ActiveRecord::Schema.define(:version => 20120809230423) do
 
   create_table "capacities", :force => true do |t|
     t.string   "name",          :null => false
@@ -67,12 +67,14 @@ ActiveRecord::Schema.define(:version => 20120807074329) do
   add_index "inscriptions", ["student_id"], :name => "index_inscriptions_on_student_id"
 
   create_table "notes", :force => true do |t|
-    t.integer  "note_eleve", :default => 0
-    t.integer  "student_id",                :null => false
-    t.integer  "context_id",                :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-    t.integer  "note_prof",  :default => 0
+    t.integer  "note_eleve",        :default => 0
+    t.integer  "student_id",                       :null => false
+    t.integer  "context_id",                       :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.integer  "note_prof",         :default => 0
+    t.text     "commentaire_eleve"
+    t.text     "commentaire_prof"
   end
 
   add_index "notes", ["context_id"], :name => "index_notes_on_context_id"
