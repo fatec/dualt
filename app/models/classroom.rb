@@ -6,7 +6,7 @@ class Classroom < ActiveRecord::Base
 
 
   has_many :inscriptions
-  has_many :students, :source => :user, :through => :inscriptions
+  has_many :students, :source => :student, :through => :inscriptions
 
   attr_accessible :name
   validates_presence_of :name

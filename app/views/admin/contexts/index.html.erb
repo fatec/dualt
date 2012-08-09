@@ -17,7 +17,7 @@
     <td><%= context.competence.nil? ? "nil" : context.competence.name %></td>
     <td><%= context.classroom.nil? ? "nil" : context.classroom.name %></td>
     <td><%= context.teacher.nil? ? "nil" : context.teacher.name %></td>
-    <td><%= link_to 'Show', admin_context_path(context) %></td>
+    <td><%= link_to 'Notes', admin_context_path(context) %></td>
     <td><%= link_to 'Edit', edit_admin_context_path(context) %></td>
     <td><%= link_to 'Destroy', admin_context_path(context), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

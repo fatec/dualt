@@ -26,14 +26,16 @@
   <table>
      <tr>
        <th>Nom</th>
-       <th>Note</th>
+       <th>Note élève</th>
+       <th>Note enseignant</th>
      </tr>
      
     <% for note in @notes %>
       <%= fields_for "notes[]", note do |f| %>  
       <tr>
         <td><%=h note.student.name %></td>
-        <td><%= f.text_field :note_eleve %></td>
+        <td><%=h note.note_eleve %></td>
+        <td><%= f.text_field :note_prof %></td>
       </tr>
 
       <% end %>

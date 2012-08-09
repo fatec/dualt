@@ -5,7 +5,7 @@ class Note < ActiveRecord::Base
   has_one :competence   , :through => :context
   has_many :comments
   
-  attr_accessible :student, :context, :note_eleve
+  attr_accessible :student, :context, :note_eleve, :note_prof
   
   validates :note_eleve, :note_prof, :numericality => { :only_integer => true , :message => "Seulement un entier"}
   
