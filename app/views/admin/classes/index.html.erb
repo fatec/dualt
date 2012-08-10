@@ -4,18 +4,21 @@
   <tr>
     <th>Nom</th>
     <th>Nombre d'élèves</th>
+    
+<% if current_user.has_role?("admin") %>
     <th></th>
     <th></th>
-    <th></th>
+<% end %>
   </tr>
 
 <% @classes.each do |classe| %>
   <tr>
-    <td><%= classe.name %></td>
+    <td><%= link_to classe.name, admin_classroom_path(classe) %></td>
     <td><%= classe.students.count %></td>
-    <td><%= link_to 'Show', admin_classroom_path(classe) %></td>
+<% if current_user.has_role?("admin") %>
     <td><%= link_to 'Edit', edit_admin_classroom_path(classe) %></td>
     <td><%= link_to 'Destroy', admin_classroom_path(classe), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<% end %>
   </tr>
 <% end %>
 </table>

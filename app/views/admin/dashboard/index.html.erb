@@ -1,17 +1,19 @@
 <h1>Administration</h1>
-<p>Pour les profs</p>
+
+<% if current_user.has_role?("teacher") %>
 <ul>
-  <li><%= link_to 'Administration des contextes' , admin_contexts_path %></li>
-  <li><%= link_to 'Voir mes contextes' %></li>
-  <li><%= link_to 'Gestion notes de classe' %></li>
+  <li><%= link_to 'Voir mes contextes', admin_contexts_path %></li>
   <li><%= link_to 'Voir les classes', admin_classrooms_path %></li>
+  <li><%= link_to 'Ajouter un contexte', new_admin_context_path %></li>
 </ul>  
+<% end %>
 
 
-<p>Pour l'administrateur</p>
+<% if current_user.has_role?("admin") %>
 <ul>
-  <li><%= link_to 'Ajouter une classe' %></li>
+  <li><%= link_to 'Ajouter une classe', new_admin_classroom_path %></li>
   <li><%= link_to 'Ajouter une compétence' %></li>
   <li><%= link_to 'Ajouter un prof' %></li>
   <li><%= link_to 'Ajouter un élève' %></li>
 </ul>
+<% end %>

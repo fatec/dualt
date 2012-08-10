@@ -3,14 +3,6 @@
   <%= @classe.name %>
 </p>
 
-<p>
-  <b>Contextes:</b>
-  <ul>
-  <% @classe.contexts.each do |context| %>
-    <li><%= link_to context.name, admin_context_path(context) %></li>
-  <% end %>
-  </ul>
-</p>
 
 <p>
   <b>Elèves:</b>
@@ -20,6 +12,24 @@
   <% end %>
   </ul>
 </p>
+
+
+<p>
+  <b>Compétences:</b>
+  <ul>
+  <% @classe.competences.each do |competence| %>
+    <li><%= link_to competence.name, admin_competence_path(competence) %></li>
+    
+    <ul>
+    <% competence.contexts_by_classroom(@classe).each do |context| %>
+      <li><%= link_to context.name, admin_context_path(context) %> <%= context.teacher==current_user ? "(mon contexte!!!)" : "" %></li>
+    <% end %>
+    </ul>
+    
+  <% end %>
+  </ul>
+</p>
+
 
 
 <%= link_to 'Edit', edit_admin_classroom_path(@classe) %> |

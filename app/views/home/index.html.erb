@@ -3,6 +3,10 @@
 <% @teachers.each do |user| %>
   <p>User: <%=link_to user.name, user %></p>
 <% end %>
+<h4>Admins</h4>
+<% @admins.each do |user| %>
+  <p>User: <%=link_to user.name, user %></p>
+<% end %>
 <h4>Etudiants</h4>
 <% @students.each do |user| %>
   <p>User: <%=link_to user.name, user %></p>

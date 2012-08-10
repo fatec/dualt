@@ -30,5 +30,8 @@ class Context < ActiveRecord::Base
     end
     return notes
   end
+  
+
+  
  
 end

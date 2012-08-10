@@ -7,8 +7,11 @@ class Admin::ContextsController < ApplicationController
   # GET /admin/contexts
   # GET /admin/contexts.json
   def index
-    @contexts = Context.order(:classroom_id)
-    
+    if params[:view]=="all"
+      @contexts = Context.order(:classroom_id)
+    else
+      @contexts = Context.where(:teacher_id => current_user).order(:classroom_id)
+    end
     
     respond_to do |format|
       format.html # index.html.erb

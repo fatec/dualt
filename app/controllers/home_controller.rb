@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     
     if current_user
       case current_user.role
-           when 'teacher'
+           when 'teacher', 'admin'
              redirect_to admin_url
            when 'student'
              redirect_to bilan_index_url
@@ -13,6 +13,7 @@ class HomeController < ApplicationController
     
          @teachers = User.teachers
          @students = User.students
+         @admins = User.admins
        
     
     

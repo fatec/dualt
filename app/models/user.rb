@@ -46,6 +46,13 @@ class User < ActiveRecord::Base
     return self.role == "student"
   end
 
+  def admins
+    return User.where(:role => "admin")
+  end  
+
+  def admin
+    return self.role == "admin"
+  end
   
   def has_role?(role)
     return self.role == role

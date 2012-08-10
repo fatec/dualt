@@ -23,6 +23,8 @@ teacher1 = User.create(first_name: "Mireille", last_name: "Dupont", email: "Mire
 teacher2 = User.create(first_name: "Daniel", last_name: "Dupont", email: "Daniel@test.com", password: "test", password_confirmation: "test", role: :teacher)
 teacher3 = User.create(first_name: "Nicolas", last_name: "Dupont", email: "Nicolas@test.com", password: "test", password_confirmation: "test", role: :teacher)
 
+admin1 = User.create(first_name: "Stéphane", last_name: "Dupont", email: "admin@test.com", password: "test", password_confirmation: "test", role: :admin)
+
 puts 'Création des classes'
 class1 = Classroom.create(name: "classe 1")
 class2 = Classroom.create(name: "classe 2")

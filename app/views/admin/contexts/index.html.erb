@@ -24,6 +24,12 @@
 <% end %>
 </table>
 
+<%= @contexts.count==0 ? link_to('ajouter un contexte', new_admin_context_path) : ""%>
+
 <br />
 
-<%= link_to 'Ajouter un contexte', new_admin_context_path %> | <%= link_to "Retour à l'administration", admin_path %>
+
+<%=  (params[:view]=='all') ?  link_to('Voir mes contextes', admin_contexts_path) : link_to('Voir tous les contextes', admin_contexts_path(:view => 'all')) %>
+
+
+ | <%= link_to 'Ajouter un contexte', new_admin_context_path %> | <%= link_to "Retour à l'administration", admin_path %>

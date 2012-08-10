@@ -4,6 +4,13 @@ class Competence < ActiveRecord::Base
   has_many :capacities
 
   
+ has_many :classroom_contexts, :class_name => 'Context'  do 
+    def filter(note)
+      find(:all, :conditions => {:author_id => note.student})
+    end
+ end
+ 
+  
   attr_accessible :name
 
   validates_presence_of :name
@@ -22,6 +29,12 @@ class Competence < ActiveRecord::Base
       bilan[context.note_eleve(eleve).note_eleve] += 1
     end
     bilan
+  end
+  
+  
+  def contexts_by_classroom(classe)
+    #trouver tous les contextes de la classe
+    self.contexts.where(:classroom_id => classe.id)
   end
   
 end
