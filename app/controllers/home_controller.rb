@@ -1,21 +1,19 @@
 class HomeController < ApplicationController
   def index
-    
-    if current_user
-      case current_user.role
-           when 'teacher', 'admin'
-             redirect_to admin_url
-           when 'student'
-             redirect_to bilan_index_url
-         end
-    end
 
+    if current_user 
+      if current_user.has_role? :teacher
+        redirect_to admin_url
+      elsif current_user.has_role? :admin
+        redirect_to admin_url
+      elsif current_user.has_role? :student
+        redirect_to bilan_index_url
+      end
+    end
     
-         @teachers = User.teachers
-         @students = User.students
-         @admins = User.admins
-       
-    
-    
+     @teachers = User.with_role :teacher
+     @students = User.with_role :student
+     @admins = User.with_role   :admin
+
   end
 end

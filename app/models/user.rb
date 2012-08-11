@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -31,38 +32,28 @@ class User < ActiveRecord::Base
 
 
   def teacher
-    return self.role == "teacher"
+    self.has_role? :teacher
   end
 
   def teachers
-    return User.where(:role => "teacher")
+    User.with_role :teacher
   end  
 
   def students
-    return User.where(:role => "student")
+    User.with_role :student
   end  
 
   def student
-    return self.role == "student"
+    self.has_role? :student
   end
 
   def admins
-    return User.where(:role => "admin")
+    User.with_role :admin
   end  
 
   def admin
-    return self.role == "admin"
+    self.has_role? :admin
   end
-  
-  def has_role?(role)
-    return self.role == role
-  end
-
-
-  
-  scope :admins, :conditions => { :role => :admin }
-  scope :students, :conditions => { :role => :student }
-  scope :teachers, :conditions => { :role => :teacher }
 
   
 end

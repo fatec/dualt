@@ -12,18 +12,28 @@
 # Attention.. les accents ne marchent pas pour l"instant.. vais chercher pourquoi plus tard
 # Ok trouvé une solution.. il faut mettre encoding UTF-8 en haut du document
 puts 'Création des utilisateurs'
-user1 = User.create(first_name: "Paul", last_name: "Dupont", email: "Paul@test.com", password: "test", password_confirmation: "test", role: :student)
-user2 = User.create(first_name: "Pierre", last_name: "Dupont", email: "Pierre@test.com", password: "test", password_confirmation: "test", role: :student)
-user3 = User.create(first_name: "Julie", last_name: "Dupont", email: "Julie@test.com", password: "test", password_confirmation: "test", role: :student)
-user4 = User.create(first_name: "Jeanne", last_name: "Dupont", email: "Jeanne@test.com", password: "test", password_confirmation: "test", role: :student)
-user5 = User.create(first_name: "Alex", last_name: "Dupont", email: "Alex@test.com", password: "test", password_confirmation: "test", role: :student)
-user6 = User.create(first_name: "Sarah", last_name: "Dupont", email: "Sarah@test.com", password: "test", password_confirmation: "test", role: :student)
+user1 = User.create(first_name: "Paul", last_name: "Dupont", email: "Paul@test.com", password: "test", password_confirmation: "test")
+user2 = User.create(first_name: "Pierre", last_name: "Dupont", email: "Pierre@test.com", password: "test", password_confirmation: "test")
+user3 = User.create(first_name: "Julie", last_name: "Dupont", email: "Julie@test.com", password: "test", password_confirmation: "test")
+user4 = User.create(first_name: "Jeanne", last_name: "Dupont", email: "Jeanne@test.com", password: "test", password_confirmation: "test")
+user5 = User.create(first_name: "Alex", last_name: "Dupont", email: "Alex@test.com", password: "test", password_confirmation: "test")
+user6 = User.create(first_name: "Sarah", last_name: "Dupont", email: "Sarah@test.com", password: "test", password_confirmation: "test")
+user1.add_role :student
+user2.add_role :student
+user3.add_role :student
+user4.add_role :student
+user5.add_role :student
+user6.add_role :student
 
-teacher1 = User.create(first_name: "Mireille", last_name: "Dupont", email: "Mireille@test.com", password: "test", password_confirmation: "test", role: :teacher)
-teacher2 = User.create(first_name: "Daniel", last_name: "Dupont", email: "Daniel@test.com", password: "test", password_confirmation: "test", role: :teacher)
-teacher3 = User.create(first_name: "Nicolas", last_name: "Dupont", email: "Nicolas@test.com", password: "test", password_confirmation: "test", role: :teacher)
+teacher1 = User.create(first_name: "Mireille", last_name: "Dupont", email: "Mireille@test.com", password: "test", password_confirmation: "test")
+teacher2 = User.create(first_name: "Daniel", last_name: "Dupont", email: "Daniel@test.com", password: "test", password_confirmation: "test")
+teacher3 = User.create(first_name: "Nicolas", last_name: "Dupont", email: "Nicolas@test.com", password: "test", password_confirmation: "test")
+teacher1.add_role :teacher
+teacher2.add_role :teacher
+teacher2.add_role :teacher
 
-admin1 = User.create(first_name: "Stéphane", last_name: "Dupont", email: "admin@test.com", password: "test", password_confirmation: "test", role: :admin)
+admin1 = User.create(first_name: "Stéphane", last_name: "Dupont", email: "admin@test.com", password: "test", password_confirmation: "test")
+admin1.add_role :admin
 
 puts 'Création des classes'
 class1 = Classroom.create(name: "classe 1")

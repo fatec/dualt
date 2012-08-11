@@ -14,6 +14,7 @@ gem 'jquery-rails'
 #gem "launchy", ">= 2.1.0", :group => :test
 gem "devise", ">= 2.1.0"
 gem "cancan", ">= 1.6.7"
+gem "rolify"
 gem 'bootstrap-sass', '~> 2.0.4.0'
 gem "simple_form"
 gem "rails-footnotes", ">= 3.7", :group => :development
