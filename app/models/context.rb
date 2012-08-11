@@ -6,7 +6,7 @@ class Context < ActiveRecord::Base
   has_many :notes
   accepts_nested_attributes_for :notes
   
-  belongs_to :teacher , :class_name => 'User',            :foreign_key => :teacher_id, :conditions=> 'users.role="teacher"'
+  belongs_to :teacher , :class_name => 'User', :foreign_key => :teacher_id 
   
   
   #attr_accessible :name, :competence_id, :classroom_id, :teacher_id

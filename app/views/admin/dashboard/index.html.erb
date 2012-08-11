@@ -1,6 +1,7 @@
-<h1>Administration</h1>
 
 <% if current_user.has_role?("teacher") %>
+<h2>Tableau de bord enseignant</h2>
+
 <ul>
   <li><%= link_to 'Voir mes contextes', admin_contexts_path %></li>
   <li><%= link_to 'Voir les classes', admin_classrooms_path %></li>
@@ -10,6 +11,7 @@
 
 
 <% if current_user.has_role?("admin") %>
+<h2>Administration</h2>
 <ul>
   <li><%= link_to 'Ajouter une classe', new_admin_classroom_path %></li>
   <li><%= link_to 'Ajouter une compétence' %></li>

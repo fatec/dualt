@@ -4,23 +4,25 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
     
-    if user.admin
-      can :manage, :all
-    elsif user.teacher
-      can :read, :all
-      can :manage, :notes
-      can :create, Context
-    elsif user.student
+    if user.has_role? :student
       can :read, :all
       can :update, :note do |note|
         note.try(:student) == current_user && note.try(:note_eleve) == 0 
       end
       cannot :read, :context
       cannot :show, Context
-    else
-      
     end
     
+    if user.has_role? :teacher
+      can :read, :all
+      can :manage, :notes
+      can :create, Context
+    end
+    
+    if user.has_role? :admin
+      can :manage, :all
+    end
+
     
     # Define abilities for the passed in user here. For example:
     #

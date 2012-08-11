@@ -6,7 +6,7 @@ class BilanController < ApplicationController
   #TODO use cancan pour authoriser seulement les etudiants et rediriger les autres avec un message d'alerte a la page d'ou il venaient ou alors root
 
   def index
-    if current_user.student
+    if current_user.has_role? :student
 
       if !current_user.current_classroom.nil? 
         #flash[:notice] = "Cool on a la classe #{current_user.current_classroom.name}"
@@ -16,17 +16,17 @@ class BilanController < ApplicationController
         #flash[:alert] = "Heu... pas de classe bilan#index"
         @competences = []
       end
-    elsif current_user.teacher
+    elsif current_user.has_role? :teacher
       redirect_to admin_contexts_url
     else
       redirect_to root_url
     end
-
+    
   end
 
   # Affiche le détail d'un contexte
   def show
-    if current_user.student
+    if current_user.has_role? :student
       
       
       @context = Context.find(params[:id])

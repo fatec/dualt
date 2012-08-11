@@ -1,6 +1,6 @@
 class Note < ActiveRecord::Base
   # attr_accessible :title, :body
-  belongs_to :student  , :class_name => 'User',    :foreign_key => :student_id, :conditions=> 'users.role="student"'
+  belongs_to :student  , :class_name => 'User',    :foreign_key => :student_id
   belongs_to :context   , :foreign_key => "context_id"
   has_one :competence   , :through => :context
  # has_many :comments

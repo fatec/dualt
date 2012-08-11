@@ -9,12 +9,12 @@ class UsersController < ApplicationController
     # => Voir toutes ses compétences
     # => Voir la liste des classes
     # => Gérer les notes
-    if @current_user.teacher
+    if current_user.has_role? :teacher
       @users = User.teachers
 
       # Si Elève
       # => Bilan
-    elsif @current_user.student      
+    elsif @current_user.has_role? :student      
       @users = User.students
       if !current_user.current_classroom.nil?
         @competences = current_user.current_classroom.competences

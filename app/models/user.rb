@@ -31,29 +31,5 @@ class User < ActiveRecord::Base
 
 
 
-  def teacher
-    self.has_role? :teacher
-  end
-
-  def teachers
-    User.with_role :teacher
-  end  
-
-  def students
-    User.with_role :student
-  end  
-
-  def student
-    self.has_role? :student
-  end
-
-  def admins
-    User.with_role :admin
-  end  
-
-  def admin
-    self.has_role? :admin
-  end
-
   
 end

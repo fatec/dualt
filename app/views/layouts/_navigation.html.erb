@@ -16,7 +16,7 @@
     <li>
     <%= link_to 'Edit account', edit_user_registration_path %>
     </li>
-    <% if current_user.has_role?("admin") || current_user.has_role?("teacher") %>
+    <% if current_user.has_role?(:admin) || current_user.has_role?(:teacher) %>
       <li>
       <%= link_to 'Admin', admin_path %>
       </li>

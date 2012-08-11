@@ -1,9 +1,9 @@
-<h1>Bienvenue <%= @current_user.name %>!!!</h1>
+<h1>Bienvenue <%= current_user.name %>!!!</h1>
 
 
-<% if @current_user.teacher %>
+<% if current_user.has_role? :teacher %>
 <p>Bilan commme les étudiants mais avec des liens en plus et une banderole prof?..</p>
-<% elsif @current_user.student %>
+<% elsif current_user.has_role? :student %>
 
 
 
