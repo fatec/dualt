@@ -2,6 +2,9 @@
 # encoding: utf-8
 
 class Admin::ClassesController < ApplicationController
+before_filter :authenticate_user!
+
+
   # GET /admin/classes
   # GET /admin/classes.json
   def index

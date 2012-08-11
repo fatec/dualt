@@ -1,4 +1,7 @@
 class Admin::DashboardController < ApplicationController
+before_filter :authenticate_user!
+#Cancan reserver l'accès aux :admin et :teacher
+
   def index
       if current_user
         case current_user.role

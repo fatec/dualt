@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 class Admin::ContextsController < ApplicationController
+before_filter :authenticate_user!
   
 
   # GET /admin/contexts
@@ -12,6 +13,7 @@ class Admin::ContextsController < ApplicationController
     else
       @contexts = Context.where(:teacher_id => current_user).order(:classroom_id)
     end
+    authorize! :read, @contexts
     
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +27,7 @@ class Admin::ContextsController < ApplicationController
  def show
    @context = Context.find(params[:id])
    @notes = @context.initialize_notes
+   authorize! :show, @context
    
    respond_to do |format|
      format.html # show.html.erb
@@ -39,6 +42,8 @@ class Admin::ContextsController < ApplicationController
     @competences = Competence.all
     @classrooms = Classroom.all
     @teachers = User.teachers
+    
+    authorize! :create, Context
 
     respond_to do |format|
       format.html # new.html.erb

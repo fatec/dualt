@@ -9,11 +9,11 @@ class BilanController < ApplicationController
     if current_user.student
 
       if !current_user.current_classroom.nil? 
-        flash.now.notice = "Cool on a la classe #{current_user.current_classroom.name}"
+        #flash[:notice] = "Cool on a la classe #{current_user.current_classroom.name}"
         @competences = current_user.current_classroom.competences
         
       else
-        flash.now.alert = "Heu... pas de classe bilan#index"
+        #flash[:alert] = "Heu... pas de classe bilan#index"
         @competences = []
       end
     elsif current_user.teacher
@@ -56,8 +56,10 @@ class BilanController < ApplicationController
   
   # PUT /bilan/[context.id]
   def update
+    
+    
     @note = Note.where("context_id = ? AND student_id = ?", params[:id], current_user).first
-
+ 
     respond_to do |format|
       if @note.update_attributes(params[:note])
         format.html { redirect_to bilan_path(params[:id]), notice: "note correctement mise à jour" }

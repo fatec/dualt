@@ -32,4 +32,8 @@
 <%=  (params[:view]=='all') ?  link_to('Voir mes contextes', admin_contexts_path) : link_to('Voir tous les contextes', admin_contexts_path(:view => 'all')) %>
 
 
- | <%= link_to 'Ajouter un contexte', new_admin_context_path %> | <%= link_to "Retour à l'administration", admin_path %>
+<% if can? :create, Context %>
+  | <%= link_to 'Ajouter un contexte', new_admin_context_path %>
+<% end %>
+
+  | <%= link_to "Retour à l'administration", admin_path %>

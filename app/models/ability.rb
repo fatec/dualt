@@ -3,12 +3,22 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-    if user.teacher
-      can :manage, :all
-    end
     
-    if user.student
+    if user.admin
+      can :manage, :all
+    elsif user.teacher
       can :read, :all
+      can :manage, :notes
+      can :create, Context
+    elsif user.student
+      can :read, :all
+      can :update, :note do |note|
+        note.try(:student) == current_user && note.try(:note_eleve) == 0 
+      end
+      cannot :read, :context
+      cannot :show, Context
+    else
+      
     end
     
     
