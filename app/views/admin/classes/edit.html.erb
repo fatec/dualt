@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', admin_classroom_path(@classe) %> |
-<%= link_to 'Back', admin_classrooms_path %>
+<% if can? :read, @classe %>
+  <%= link_to "Voir la classe" , admin_classroom_path(@classe) %>|
+<% end %>
+<%= link_to "Retour à l'administration", admin_classrooms_path %>

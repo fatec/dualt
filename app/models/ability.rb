@@ -9,18 +9,32 @@ class Ability
       can :update, :note do |note|
         note.try(:student) == current_user && note.try(:note_eleve) == 0 
       end
-      cannot :read, :context
-      cannot :show, Context
+      
+      cannot :read, :other_bilan
+      
+      
+      cannot :read, Classroom
     end
     
     if user.has_role? :teacher
       can :read, :all
-      can :manage, :notes
+
       can :create, Context
+      #peut mettre a jour un contexte si il lui appartient
+      can :update, Context do |context|
+            context.teacher == user
+      end
+      
     end
     
     if user.has_role? :admin
       can :manage, :all
+      # Pas possible d'effacer les classes qui ont des étudiants
+      cannot :destroy, Classroom  do |classroom|
+            classroom.students.count != 0
+      end
+      
+      cannot :destroy, Context
     end
 
     

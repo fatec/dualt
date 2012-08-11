@@ -15,14 +15,24 @@
   <tr>
     <td><%= link_to classe.name, admin_classroom_path(classe) %></td>
     <td><%= classe.students.count %></td>
-<% if current_user.has_role?("admin") %>
-    <td><%= link_to 'Edit', edit_admin_classroom_path(classe) %></td>
-    <td><%= link_to 'Destroy', admin_classroom_path(classe), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-<% end %>
+    <td>
+    <% if can? :update, classe %>
+      <%= link_to 'Edit', edit_admin_classroom_path(classe) %>
+    <% end %>
+    </td>
+    <td>
+    <% if can? :destroy, classe %>
+      <%= link_to 'Destroy', admin_classroom_path(classe), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'Ajouter une classe', new_admin_classroom_path %> | <%= link_to "Retour à l'administration", admin_path %>
+
+<% if can? :create, Classroom %>
+  <%= link_to 'Ajouter une classe', new_admin_classroom_path %> | 
+<% end %>
+<%= link_to "Retour à l'administration", admin_path %>

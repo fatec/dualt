@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+    flash.keep
 
     if current_user 
       if current_user.has_role? :teacher

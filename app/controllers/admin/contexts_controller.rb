@@ -13,7 +13,7 @@ before_filter :authenticate_user!
     else
       @contexts = Context.where(:teacher_id => current_user).order(:classroom_id)
     end
-    authorize! :read, @contexts
+    authorize! :read, Context
     
     respond_to do |format|
       format.html # index.html.erb
@@ -26,6 +26,7 @@ before_filter :authenticate_user!
  # GET /admin/contexts/1.json
  def show
    @context = Context.find(params[:id])
+   authorize! :read, @context
    @notes = @context.initialize_notes
    authorize! :show, @context
    
@@ -39,9 +40,10 @@ before_filter :authenticate_user!
   # GET /admin/contexts/new.json
   def new
     @context = Context.new
+    authorize! :update, Context
     @competences = Competence.all
     @classrooms = Classroom.all
-    @teachers = User.teachers
+    @teachers = User.with_role :teacher
     
     authorize! :create, Context
 
@@ -55,6 +57,7 @@ before_filter :authenticate_user!
   # POST /admin/contexts.json
   def create
     @context = Context.new(params[:context])
+    authorize! :create, @context
 
     respond_to do |format|
       if @context.save
@@ -73,9 +76,10 @@ before_filter :authenticate_user!
   # GET /admin/contexts/1/edit
   def edit
     @context = Context.find(params[:id]) 
+    authorize! :update, @context
     @competences = Competence.all
     @classrooms = Classroom.all
-    @teachers = User.teachers
+    @teachers = User.with_role :teacher
   end
   
     
@@ -83,6 +87,7 @@ before_filter :authenticate_user!
   # PUT /admin/contexts/1.json
   def update
     @context = Context.find(params[:id]) 
+    authorize! :update, @context
 
    respond_to do |format|
      if @context.update_attributes(params[:context])
@@ -99,6 +104,9 @@ before_filter :authenticate_user!
   # DELETE /admin/contexts/1.json
   def destroy
     @context = Context.find(params[:id])
+    authorize! :destroy, @context
+    
+    
     @context.destroy
 
     respond_to do |format|

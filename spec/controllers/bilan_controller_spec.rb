@@ -4,13 +4,6 @@ describe BilanController do
 
   describe "GET 'index'" do
     
-    it "redirects teachers to administration" do
-      teacher = FactoryGirl.create(:user)
-      teacher.add_role :teacher
-      sign_in teacher
-      get :index
-      response.should redirect_to admin_contexts_url
-    end
     
     it "renders the index template to students" do
       student = FactoryGirl.create(:user)
@@ -20,7 +13,7 @@ describe BilanController do
       response.should render_template :index
     end
     
-    
+=begin    
     describe "user is not admin or student" do    
       it "redirects to root_url if not admin or student" do
         no_role = FactoryGirl.create(:user)
@@ -36,11 +29,12 @@ describe BilanController do
         response.should redirect_to root_url
       end
     end
-    
+=end
   end
 
   describe "GET 'show'" do
-    
+
+=begin    
     it "redirects admins to admin_eleve_show(id)" do
       teacher = FactoryGirl.create(:user)
       teacher.add_role :teacher
@@ -48,7 +42,7 @@ describe BilanController do
       get :show, id: FactoryGirl.create(:context)
       response.should redirect_to root_url
     end
-    
+=end    
     describe "user is not admin or student" do    
       it "redirects to root_url if not admin or student" do
         no_role = FactoryGirl.create(:user)

@@ -18,8 +18,17 @@
     <td><%= context.classroom.nil? ? "nil" : context.classroom.name %></td>
     <td><%= context.teacher.nil? ? "nil" : context.teacher.name %></td>
     <td><%= link_to 'Notes', admin_context_path(context) %></td>
-    <td><%= link_to 'Edit', edit_admin_context_path(context) %></td>
-    <td><%= link_to 'Destroy', admin_context_path(context), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+    <% if can? :update, context %>
+      <%= link_to 'Edit', edit_admin_context_path(context) %>
+    <% end %>
+    </td>
+    <td>
+    <% if can? :destroy, context %>
+      <%= link_to 'Destroy', admin_context_path(context), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    
+    </td>
   </tr>
 <% end %>
 </table>
@@ -29,11 +38,11 @@
 <br />
 
 
-<%=  (params[:view]=='all') ?  link_to('Voir mes contextes', admin_contexts_path) : link_to('Voir tous les contextes', admin_contexts_path(:view => 'all')) %>
+<%=  (params[:view]=='all') ?  link_to('Voir mes contextes', admin_contexts_path) : link_to('Voir tous les contextes', admin_contexts_path(:view => 'all')) %> |
 
 
 <% if can? :create, Context %>
-  | <%= link_to 'Ajouter un contexte', new_admin_context_path %>
+  <%= link_to 'Ajouter un contexte', new_admin_context_path %> |
 <% end %>
 
-  | <%= link_to "Retour à l'administration", admin_path %>
+<%= link_to "Retour à l'administration", admin_path %>

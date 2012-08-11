@@ -2,5 +2,8 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', admin_context_path(@context) %> |
-<%= link_to 'Back', admin_contexts_path %>
+
+<% if can? :read, @context %>
+  <%= link_to 'Voir le contexte', admin_context_path(@context) %> |
+<% end %>
+<%= link_to "Retour à l'administration", admin_classrooms_path %>

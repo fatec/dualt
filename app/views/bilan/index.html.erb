@@ -1,17 +1,16 @@
-<h1>Bienvenue <%= current_user.name %>!!!</h1>
-
-
-<% if current_user.has_role? :teacher %>
-<p>Bilan commme les étudiants mais avec des liens en plus et une banderole prof?..</p>
-<% elsif current_user.has_role? :student %>
 
 
 
+<%=  (params[:student] && User.find(params[:student]) != current_user) ?  "Vous êtes #{current_user.name} et vous voyez le bilan de #{User.find(params[:student]).name}" : "" %>
+
+<%  params[:student] ?  user = User.find(params[:student]) : user = current_user %>
+
+<h1>Bilan de <%= user.name %></h1>
 
 <table class="table table-striped" id="sortTable">
   <thead>
     <tr>
-      <th class="blue header">Compétence</th>
+      <th class="blue header">Compétences</th>
       <th class=" header"></th>
       <th class=" header"></th>
       <th class=" header"></th>
@@ -21,7 +20,7 @@
   <tbody>
     <% @competences.each do |competence| %>
     
-    <% bilan = competence.bilan(current_user) %>
+    <% bilan = competence.bilan(user) %>
      <tr>
        <td><%= link_to competence.name, bilan_path(competence.contexts.first) %></td>
        <td><span class="label"><%= bilan[0] %></span> </td>
@@ -35,8 +34,3 @@
   </tbody>
 </table>
 
-
-
-<% else %>
- Ne devrait pas s'afficher.. ? (bilan#index pour pour une personne non connectée..)
-<% end %>

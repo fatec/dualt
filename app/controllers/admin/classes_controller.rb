@@ -9,6 +9,7 @@ before_filter :authenticate_user!
   # GET /admin/classes.json
   def index
     @classes = Classroom.all
+    authorize! :read, Classroom
 
     respond_to do |format|
       format.html # index.html.erb
@@ -21,6 +22,7 @@ before_filter :authenticate_user!
   # GET /admin/classes/1.json
   def show
     @classe = Classroom.find(params[:id])
+     authorize! :read, @classe
 
     respond_to do |format|
       format.html # show.html.erb
@@ -32,12 +34,14 @@ before_filter :authenticate_user!
   # GET /admin/classes/1/edit
   def edit
     @classe = Classroom.find(params[:id]) 
+    authorize! :update, @classe
   end
 
  # GET /admin/classes/new
  # GET /admin/classes/new.json
  def new
    @classe = Classroom.new
+   authorize! :read, Classroom
 
    respond_to do |format|
      format.html # new.html.erb
@@ -49,6 +53,7 @@ before_filter :authenticate_user!
   # POST /admin/contexts.json
   def create
     @classe = Classroom.new(params[:classroom])
+    authorize! :create, @classe
 
     respond_to do |format|
       if @classe.save
@@ -66,7 +71,7 @@ before_filter :authenticate_user!
     # PUT /admin/classes/1.json
     def update
       @classe = Classroom.find(params[:id])  
-      Rails.logger.debug params.inspect
+      authorize! :update, @classe
 
      respond_to do |format|
        if @classe.update_attributes(params[:classroom])
@@ -83,7 +88,8 @@ before_filter :authenticate_user!
     # DELETE /admin/contexts/1.json
     def destroy
       @classe = Classroom.find(params[:id])
-
+      authorize! :destroy, @classe
+      
       respond_to do |format|
         if @classe.students.count > 0
           format.html { redirect_to admin_classrooms_url, alert: "Il n'est pas possible d'enlever une classe qui contient des élèves"  }
