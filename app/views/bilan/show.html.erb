@@ -19,7 +19,14 @@
     <%= link_to "Retour administration de la classe", admin_classroom_path(@note.student.current_classroom) %>
   </p>
 <% end %>
-<%  params[:student] ?  user = User.find(params[:student]) : user = current_user %>
+<% if params[:student] %>
+  <% user = User.find(params[:student]) %>
+  <% good_path=bilan_path(@context, :student => user.id) %>
+<% else %>
+  <% user = current_user  %>
+  <% good_path=bilan_path(@context) %>
+<% end %>
+
 
 
 <div class="page-header">
@@ -55,14 +62,30 @@
 
 
 <% if (current_user.has_role?(:teacher)||current_user.has_role?(:admin)) %>
-  On affiche le formulaire du prof
+
+  <p>Note élève : <%= @note.note_eleve %></p>
+  <p>Commentaire élève : <%= @note.commentaire_eleve %></p>
+
+  <p>Note enseignant : <%= @note.note_prof %></p>
+  
+    <%= form_for(@note, :url => good_path) do |f|%>
+  <p>
+  <%= f.label :note_prof, "Note enseignant" %> 
+  <%= f.text_field :note_prof %>
+  <%= f.label :commmentaire_prof, "Commentaire enseignant" %> 
+  <%= f.text_area :commentaire_prof %>
+  <%= submit_tag("Mettre à jour") %>
+ </p>
+ <% end %>
+
+
 <% else %>
 
   <p>Note prof : <%= @note.note_prof %></p>
   <p>Commentaire prof : <%= @note.commentaire_prof %></p>
 
   <p>Note elève : <%= @note.note_eleve %></p>
-  <%= form_for(@note, :url => bilan_path(@context)) do |f|%>
+  <%= form_for(@note, :url => good_path) do |f|%>
   <p>
     <%= f.label :note_eleve, "Note élève" %> 
     <%= f.text_field :note_eleve %>
