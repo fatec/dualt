@@ -16,7 +16,7 @@ class Classroom < ActiveRecord::Base
   # par exemple class1.competences.find_by_name("competence 1")
 
   def tested_competences
-    self.find(:all, :select => 'distinct competences_id')
+    Competence.find_all_by_id(Context.where(:classroom_id => self.id).select(:competence_id).uniq)
   end
   
 end

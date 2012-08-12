@@ -1,22 +1,58 @@
 
-
 <%  if (@note.student_id == current_user.id) %>
-  Vous êtes l'élève <%= current_user.name %><br/>
+  <p>Vous êtes l'élève <%= current_user.name %></p>
+  <p><%= link_to "Retour au bilan", bilan_index_path %></p>
 <%  end %>
 
-
 <%  if (@context.teacher_id == current_user.id) %>
-  Vous êtes l'enseignant du contexte <br/>
+  <p>Vous êtes l'enseignant du contexte </p>
+  <p>
+    <%= link_to "Retour au bilan de l'élève", bilan_index_path(:student => @note.student_id) %> |
+    <%= link_to "Retour administration de la classe", admin_classroom_path(@note.student.current_classroom) %>
+  </p>
 <%  end %>
 
 <%  if ((@context.teacher_id != current_user.id) && (current_user.has_role?(:teacher)||current_user.has_role?(:admin))) %>
-    Vous êtes un autre enseignant <br/>
-  <% end %>
+  <p>Vous êtes un autre enseignant </p>
+  <p>
+    <%= link_to "Retour au bilan de l'élève", bilan_index_path(:student => @note.student_id) %> |
+    <%= link_to "Retour administration de la classe", admin_classroom_path(@note.student.current_classroom) %>
+  </p>
+<% end %>
+<%  params[:student] ?  user = User.find(params[:student]) : user = current_user %>
 
 
-<p><%= link_to "Retour au bilan", bilan_index_path %></p>
-  
-<p>Contexte actif <%= @context.name %></p>
+<div class="page-header">
+  <h1><%= @competence.name %> </h1>
+  <h1><small>Ajouter ici competence.description</small></h1>
+</div>
+
+<div class="row">
+  <div class="span11">
+    <h3>Capacités</h3>
+        <ol>
+          <% @competence.capacities.each do |capacity| %>
+          <li><%= capacity.name %></li>    
+          <% end %>
+        </ol>
+  </div>
+  <div class="span5">
+    <div>
+      <a href="/files/<%= @competence.file %>">détails de la compétence</a>
+    </div>
+  </div>
+</div>
+
+<ul class="pills">
+   <% @contexts.each do |context|  %>
+    <li <% if @context == context%> class="active"<%	 end %> >
+      <% params[:student] ? path=bilan_path(context, :student => user.id) : path=bilan_path(context) %>
+      <%= link_to context.name, path %>
+    </li>
+   <% end %>
+</ul>
+
+
 
 <% if (current_user.has_role?(:teacher)||current_user.has_role?(:admin)) %>
   On affiche le formulaire du prof
@@ -38,13 +74,4 @@
 <% end %>
 
 
-<p>Compétence <%= @context.competence.name %> </p>
-<p>liste des contextes</p>
-<ul class="pills">
-     <% @contexts.each do |context| %>
-      <li <% if @context == context%> class="active"<%	 end %> >
-        <%= link_to context.name, bilan_path(context) %>
-      </li>
-     <% end %>
-</ul>
   

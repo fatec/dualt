@@ -1,9 +1,12 @@
 
 
 
-<%=  (params[:student] && User.find(params[:student]) != current_user) ?  "Vous êtes #{current_user.name} et vous voyez le bilan de #{User.find(params[:student]).name}" : "" %>
-
 <%  params[:student] ?  user = User.find(params[:student]) : user = current_user %>
+<% if  (params[:student] && User.find(params[:student]) != current_user) %>
+  <p>Vous êtes <%= current_user.name %> et vous voyez le bilan de <%= user.name %></p>
+  <p><%= link_to "Retour administration de la classe", admin_classroom_path(user.current_classroom) %></p>
+<% end %>
+
 
 <h1>Bilan de <%= user.name %></h1>
 
@@ -22,7 +25,7 @@
     
     <% bilan = competence.bilan(user) %>
      <tr>
-       <% params[:student] ? path=bilan_path(competence.contexts.first, :student => user.id) : path=bilan_path(competence.contexts.first) %>
+       <% params[:student] ? path=bilan_path(competence.contexts_by_classroom(user.current_classroom).first, :student => user.id) : path=bilan_path(competence.contexts_by_classroom(user.current_classroom).first) %>
        <td><%= link_to competence.name, path %></td>
        <td><span class="label"><%= bilan[0] %></span> </td>
        <td> <span class="label success"><%= bilan[1] %></span>   </td>

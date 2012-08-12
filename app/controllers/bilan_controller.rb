@@ -11,7 +11,7 @@ class BilanController < ApplicationController
     
     if !user.current_classroom.nil? 
       #flash[:notice] = "Cool on a la classe #{current_user.current_classroom.name}"
-      @competences = user.current_classroom.competences
+      @competences = user.current_classroom.tested_competences
     else
       #flash[:alert] = "Heu... pas de classe bilan#index"
       @competences = []
@@ -34,7 +34,7 @@ class BilanController < ApplicationController
     if (@context.classroom == user.current_classroom)    
       ### TODO : changer cette requette.. et mettre ca dans la classe compétence?
       @contexts = Context.where("classroom_id = ? AND competence_id = ?", @context.classroom, @context.competence)
-    
+      @competence = @context.competence
       @note = Note.where("context_id = ? AND student_id = ?", @context, user).first
       if @note.nil?
         @note = Note.create(student: user, context: @context)
