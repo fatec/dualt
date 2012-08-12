@@ -1,20 +1,40 @@
+
+
+<%  if (@note.student_id == current_user.id) %>
+  Vous êtes l'élève <%= current_user.name %><br/>
+<%  end %>
+
+
+<%  if (@context.teacher_id == current_user.id) %>
+  Vous êtes l'enseignant du contexte <br/>
+<%  end %>
+
+<%  if ((@context.teacher_id != current_user.id) && (current_user.has_role?(:teacher)||current_user.has_role?(:admin))) %>
+    Vous êtes un autre enseignant <br/>
+  <% end %>
+
+
 <p><%= link_to "Retour au bilan", bilan_index_path %></p>
   
 <p>Contexte actif <%= @context.name %></p>
 
+<% if (current_user.has_role?(:teacher)||current_user.has_role?(:admin)) %>
+  On affiche le formulaire du prof
+<% else %>
 
-<p>Note prof : <%= @note.note_prof %></p>
-<p>Commentaire prof : <%= @note.commentaire_prof %></p>
+  <p>Note prof : <%= @note.note_prof %></p>
+  <p>Commentaire prof : <%= @note.commentaire_prof %></p>
 
-<p>Note elève : <%= @note.note_eleve %></p>
-<%= form_for(@note, :url => bilan_path(@context)) do |f|%>
-<p>
-  <%= f.label :note_eleve, "Note élève" %> 
-  <%= f.text_field :note_eleve %>
-  <%= f.label :commmentaire_eleve, "Commentaire élève" %> 
-  <%= f.text_area :commentaire_eleve %>
-  <%= submit_tag("Mettre à jour") %>
-</p>
+  <p>Note elève : <%= @note.note_eleve %></p>
+  <%= form_for(@note, :url => bilan_path(@context)) do |f|%>
+  <p>
+    <%= f.label :note_eleve, "Note élève" %> 
+    <%= f.text_field :note_eleve %>
+    <%= f.label :commmentaire_eleve, "Commentaire élève" %> 
+    <%= f.text_area :commentaire_eleve %>
+    <%= submit_tag("Mettre à jour") %>
+  </p>
+  <% end %>
 <% end %>
 
 

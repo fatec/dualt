@@ -22,7 +22,8 @@
     
     <% bilan = competence.bilan(user) %>
      <tr>
-       <td><%= link_to competence.name, bilan_path(competence.contexts.first) %></td>
+       <% params[:student] ? path=bilan_path(competence.contexts.first, :student => user.id) : path=bilan_path(competence.contexts.first) %>
+       <td><%= link_to competence.name, path %></td>
        <td><span class="label"><%= bilan[0] %></span> </td>
        <td> <span class="label success"><%= bilan[1] %></span>   </td>
        <td> <span class="label warning"><%= bilan[2] %></span>   </td>

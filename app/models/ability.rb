@@ -11,8 +11,6 @@ class Ability
       end
       
       cannot :read, :other_bilan
-      
-      
       cannot :read, Classroom
     end
     

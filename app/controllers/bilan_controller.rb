@@ -27,17 +27,26 @@ class BilanController < ApplicationController
 
   # Affiche le détail d'un contexte
   def show
-
-    @context = Context.find(params[:id])
-  
-    ### TODO : changer cette requette.. et mettre ca dans la classe compétence?
-    @contexts = Context.where("classroom_id = ? AND competence_id = ?", @context.classroom, @context.competence)
+    params[:student] ?  user = User.find(params[:student]) : user = current_user
     
-    @note = Note.where("context_id = ? AND student_id = ?", @context, current_user).first
-    if @note.nil?
-      @note = Note.create(student: current_user, context: @context)
-    end  
-    authorize! :read, @note
+    @context = Context.find(params[:id])
+    
+    if (@context.classroom == user.current_classroom)    
+      ### TODO : changer cette requette.. et mettre ca dans la classe compétence?
+      @contexts = Context.where("classroom_id = ? AND competence_id = ?", @context.classroom, @context.competence)
+    
+      @note = Note.where("context_id = ? AND student_id = ?", @context, user).first
+      if @note.nil?
+        @note = Note.create(student: user, context: @context)
+      end 
+    
+      if (params[:student] && User.find(params[:student]) != current_user)
+        authorize! :read, :other_bilan
+      end
+      authorize! :read, @note
+    else
+      redirect_to root_path, :alert => "l'élève #{user.name} n'est pas dans la classe #{@context.classroom.name} ( il est dans #{user.current_classroom.name} ) "
+    end
 
     ###########
     ###
