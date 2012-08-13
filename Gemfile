@@ -21,6 +21,10 @@ gem "simple_form"
 gem "rails-footnotes", ">= 3.7", :group => :development
 gem "therubyracer", :group => :assets, :platform => :ruby
 
+# for deployment
+gem 'unicorn'
+gem 'capistrano'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
