@@ -35,7 +35,7 @@
 </div>
 
 <div class="row">
-  <div class="span11">
+  <div class="span7">
     <h3>Capacités</h3>
         <ol>
           <% @competence.capacities.each do |capacity| %>
@@ -48,53 +48,65 @@
       <a href="/files/<%= @competence.file %>">détails de la compétence</a>
     </div>
   </div>
+
 </div>
 
-<ul class="pills">
-   <% @contexts.each do |context|  %>
-    <li <% if @context == context%> class="active"<%	 end %> >
-      <% params[:student] ? path=bilan_path(context, :student => user.id) : path=bilan_path(context) %>
-      <%= link_to context.name, path %>
-    </li>
-   <% end %>
-</ul>
 
-
+<div class="row">
+  <div class="span12">
+    <ul class="nav nav-pills">
+       <% @contexts.each do |context|  %>
+        <li <% if @context == context%> class="active"<%	 end %> >
+          <% params[:student] ? path=bilan_path(context, :student => user.id) : path=bilan_path(context) %>
+          <%= link_to context.name, path %>
+        </li>
+       <% end %>
+    </ul>
+  </div>
+</div>  
+  
+<div class="row">
 
 <% if (current_user.has_role?(:teacher)||current_user.has_role?(:admin)) %>
 
-  <p>Note élève : <%= @note.note_eleve %></p>
-  <p>Commentaire élève : <%= @note.commentaire_eleve %></p>
-
-  <p>Note enseignant : <%= @note.note_prof %></p>
-  
-    <%= form_for(@note, :url => good_path) do |f|%>
-  <p>
-  <%= f.label :note_prof, "Note enseignant" %> 
-  <%= f.text_field :note_prof %>
-  <%= f.label :commmentaire_prof, "Commentaire enseignant" %> 
-  <%= f.text_area :commentaire_prof %>
-  <%= submit_tag("Mettre à jour") %>
- </p>
- <% end %>
-
+  <div class="span6">
+    <p>Note élève : <%= @note.note_eleve %></p>
+    <p>Commentaire élève : <%= @note.commentaire_eleve %></p>
+  </div>
+  <div class="span6">
+    <div>
+       <%= form_for(@note, :url => good_path) do |f|%>
+       <p>
+       <%= f.input :note_prof, :label => "Evaluation de l'enseignant" %>
+       <%= f.input :commentaire_prof, :label => "Commentaire de l'enseignant", :input_html => { :rows => 3 }  %>
+       <%= submit_tag("Mettre à jour") %>
+      </p>
+      <% end %>
+    </div>
+  </div>
 
 <% else %>
 
-  <p>Note prof : <%= @note.note_prof %></p>
-  <p>Commentaire prof : <%= @note.commentaire_prof %></p>
+  <div class="span6">
+    <%= simple_form_for(@note, :html => {:class => 'form-horizontal' }, :url => good_path) do |f|%>
+    <p>
+      <%= f.input :note_eleve, :collection => 0..3, :as => :radio_buttons,  :label => "Votre auto-évaluation" %>
+      <%= f.input :commentaire_eleve, :label => "Votre commentaire", :input_html => { :rows => 3 } %>
+      <%= submit_tag("Mettre à jour") %>
+    </p>
+    <% end %>
+  </div>
+  <div class="span6">
+    <div>
+       <p>Note prof : <%= @note.note_prof %></p>
+       <p>Commentaire prof : <%= @note.commentaire_prof %></p>
+    </div>
+  </div>
 
-  <p>Note elève : <%= @note.note_eleve %></p>
-  <%= form_for(@note, :url => good_path) do |f|%>
-  <p>
-    <%= f.label :note_eleve, "Note élève" %> 
-    <%= f.text_field :note_eleve %>
-    <%= f.label :commmentaire_eleve, "Commentaire élève" %> 
-    <%= f.text_area :commentaire_eleve %>
-    <%= submit_tag("Mettre à jour") %>
-  </p>
-  <% end %>
+
+
 <% end %>
 
+</div>
 
   
