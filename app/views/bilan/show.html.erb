@@ -70,14 +70,19 @@
 <% if (current_user.has_role?(:teacher)||current_user.has_role?(:admin)) %>
 
   <div class="span6">
-    <p>Note élève : <%= @note.note_eleve %></p>
+    <p>Note élève : <%= @note.note_eleve_text %></p>
     <p>Commentaire élève : <%= @note.commentaire_eleve %></p>
   </div>
   <div class="span6">
     <div>
        <%= form_for(@note, :url => good_path) do |f|%>
        <p>
-       <%= f.input :note_prof, :label => "Evaluation de l'enseignant" %>
+       <%= f.input :note_prof,
+       :collection => [["0", "Sans évaluation"], ["1", "A revoir"], ["2", "Moyen"], ["3", "Bon"]], 
+       :label_method => :last, 
+       :value_method => :first,
+       :label => "Evaluation de l'enseignant",
+       :as => :radio %>
        <%= f.input :commentaire_prof, :label => "Commentaire de l'enseignant", :input_html => { :rows => 3 }  %>
        <%= submit_tag("Mettre à jour") %>
       </p>
@@ -90,7 +95,12 @@
   <div class="span6">
     <%= simple_form_for(@note, :html => {:class => 'form-horizontal' }, :url => good_path) do |f|%>
     <p>
-      <%= f.input :note_eleve, :collection => 0..3, :as => :radio_buttons,  :label => "Votre auto-évaluation" %>
+      <%= f.input :note_eleve, 
+      :collection => [["0", "Sans évaluation"], ["1", "A revoir"], ["2", "Moyen"], ["3", "Bon"]], 
+      :label_method => :last, 
+      :value_method => :first,
+      :label => "Votre auto-évaluation",
+      :as => :radio %>
       <%= f.input :commentaire_eleve, :label => "Votre commentaire", :input_html => { :rows => 3 } %>
       <%= submit_tag("Mettre à jour") %>
     </p>
@@ -98,7 +108,7 @@
   </div>
   <div class="span6">
     <div>
-       <p>Note prof : <%= @note.note_prof %></p>
+       <p>Note prof : <%= @note.note_prof_text %></p>
        <p>Commentaire prof : <%= @note.commentaire_prof %></p>
     </div>
   </div>

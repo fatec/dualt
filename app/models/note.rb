@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 class Note < ActiveRecord::Base
   # attr_accessible :title, :body
   belongs_to :student  , :class_name => 'User',    :foreign_key => :student_id
@@ -19,8 +22,35 @@ class Note < ActiveRecord::Base
  # end
   
   
+  def note_prof_text
+    case self.note_prof
+    when 0
+      "sans évaluation"
+    when 1
+      "A revoir"
+    when 2
+      "Moyen"
+    when 3
+      "Bon"
+    else
+      self.note_prof
+    end
+  end
   
-  
+  def note_eleve_text
+    case self.note_eleve
+    when 0
+      "sans évaluation"
+    when 1
+      "A revoir"
+    when 2
+      "Moyen"
+    when 3
+      "Bon"
+    else
+      self.note_eleve
+    end
+  end
   
   
   attr_accessible :student, :context, :note_eleve, :note_prof, :commentaire_eleve, :commentaire_prof

@@ -20,13 +20,20 @@ class Competence < ActiveRecord::Base
   def bilan(eleve)
     # On met le bilan de l'utilisateur dans un hash bilan[0] 
     bilan = Hash.new(0)
-    bilan[0] = 0
-    bilan[1] = 0
-    bilan[2] = 0
-    bilan[3] = 0
+    bilan[:student] = Hash.new(0)
+    bilan[:teacher] = Hash.new(0)
+    bilan[:student][0] = 0
+    bilan[:student][1] = 0
+    bilan[:student][2] = 0
+    bilan[:student][3] = 0
+    bilan[:teacher][0] = 0
+    bilan[:teacher][1] = 0
+    bilan[:teacher][2] = 0
+    bilan[:teacher][3] = 0
     
     Context.where(:competence_id => self, :classroom_id => eleve.current_classroom).each do |context|
-      bilan[context.note_eleve(eleve).note_eleve] += 1
+      bilan[:student][context.note_eleve(eleve).note_eleve] += 1
+      bilan[:teacher][context.note_eleve(eleve).note_prof] += 1
     end
     bilan
   end
