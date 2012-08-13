@@ -7,6 +7,7 @@ set :user, "deployer"
 set :deploy_to, "/home/#{user}/rails_applications/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
+set :rails_env, "production"
 
 set :scm, "git"
 set :repository, "git@github.com:fatec/#{application}.git"
@@ -38,6 +39,12 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
   after "deploy:finalize_update", "deploy:symlink_config"
+
+  desc "reload the database with seed data"
+  task :seed do
+    run "cd #{current_path}; bundle exec rake db:seed RAILS_ENV=#{rails_env}"
+  end
+
 
   desc "Make sure local git is in sync with remote."
   task :check_revision, roles: :web do

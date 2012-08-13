@@ -20,6 +20,8 @@ gem 'bootstrap-sass', '~> 2.0.4.0'
 gem "simple_form"
 gem "rails-footnotes", ">= 3.7", :group => :development
 gem "therubyracer", :group => :assets, :platform => :ruby
+# Needed for passenger?
+gem "multi_json"
 
 # for deployment
 gem 'unicorn'
