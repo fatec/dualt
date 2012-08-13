@@ -32,7 +32,7 @@ class BilanController < ApplicationController
     @context = Context.find(params[:id])
     
     
-    if (user.current_classroom && @context.classroom == user.current_classroom)    
+    if (@context.classroom == user.current_classroom)    
       ### TODO : changer cette requette.. et mettre ca dans la classe compétence?
       @contexts = Context.where("classroom_id = ? AND competence_id = ?", @context.classroom, @context.competence)
       @competence = @context.competence
@@ -46,7 +46,7 @@ class BilanController < ApplicationController
       end
       authorize! :read, @note
     else
-      redirect_to root_path, :alert => "l'élève #{user.name} n'est pas dans la classe #{@context.classroom.name} ( il est dans #{user.current_classroom.name} ) "
+      redirect_to root_path, :alert => "l'élève #{user.name} n'est pas dans la classe #{@context.classroom.name} "
     end
 
     ###########
