@@ -1,4 +1,4 @@
-root = "/home/deployer/rails_application/dualt/current"
+root = "/home/deployer/rails_applications/dualt/current"
 working_directory root
 pid "#{root}/tmp/pids/unicorn.pid"
 stderr_path "#{root}/log/unicorn.log"
