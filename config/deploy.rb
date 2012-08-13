@@ -56,3 +56,13 @@ namespace :deploy do
   end
   before "deploy", "deploy:check_revision"
 end
+
+
+namespace :passenger do
+  desc "Restart Application with passenger"  
+  task :restart do  
+    run "touch #{current_path}/tmp/restart.txt"  
+  end
+end
+
+after :deploy, "passenger:restart"
