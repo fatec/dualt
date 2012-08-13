@@ -1,4 +1,4 @@
-#require "bundler/capistrano"
+require "bundler/capistrano"
 
 server "tecfalabs.unige.ch", :web, :app, :db, primary: true
 
