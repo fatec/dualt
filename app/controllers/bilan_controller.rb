@@ -32,7 +32,7 @@ class BilanController < ApplicationController
     @context = Context.find(params[:id])
     
     
-    if (@context && @context.classroom == user.current_classroom)    
+    if (user.current_classroom && @context.classroom == user.current_classroom)    
       ### TODO : changer cette requette.. et mettre ca dans la classe compétence?
       @contexts = Context.where("classroom_id = ? AND competence_id = ?", @context.classroom, @context.competence)
       @competence = @context.competence
