@@ -8,7 +8,7 @@ FactoryGirl.define do
     name { Faker::Lorem.words(1)[0] }
     competence_id {FactoryGirl.create(:competence).id}
     classroom_id {FactoryGirl.create(:classroom).id}
-    teacher_id {FactoryGirl.create(:user, :role => 'teacher').id}
+    teacher_id {FactoryGirl.create(:user).id}
   end  
 
   
