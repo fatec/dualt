@@ -231,6 +231,7 @@ DEPENDENCIES
   guard-rspec
   jquery-rails
   launchy
+  multi_json
   pg
   rails (= 3.2.6)
   rails-footnotes (>= 3.7)
