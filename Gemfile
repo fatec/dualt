@@ -8,6 +8,7 @@ gem "cancan", ">= 1.6.7"
 gem "rolify"
 gem 'bootstrap-sass', '~> 2.0.4.0'
 gem "simple_form"
+gem "i18n"
 
 # for deployment
 gem 'unicorn'

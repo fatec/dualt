@@ -229,6 +229,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   guard-rspec
+  i18n
   jquery-rails
   launchy
   pg
