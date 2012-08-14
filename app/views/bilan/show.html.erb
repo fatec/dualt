@@ -8,7 +8,7 @@
   <p>Vous êtes l'enseignant du contexte </p>
   <p>
     <%= link_to "Retour au bilan de l'élève", bilan_index_path(:student => @note.student_id) %> |
-    <%= link_to "Retour administration de la classe", admin_classroom_path(@note.student.current_classroom) %>
+    <%= link_to "Retour administration de la classe", admin_context_path(@context) %>
   </p>
 <%  end %>
 
@@ -75,7 +75,7 @@
   </div>
   <div class="span6">
     <div>
-       <%= form_for(@note, :url => good_path) do |f|%>
+       <%= simple_form_for(@note, :url => good_path) do |f|%>
        <p>
        <%= f.input :note_prof,
        :collection => [["0", "Sans évaluation"], ["1", "A revoir"], ["2", "Moyen"], ["3", "Bon"]], 

@@ -1,0 +1,22 @@
+<ul>
+<% @competences.each do |competence| %>
+  <li><%= competence.name %>
+    
+    <% if can? :update, competence %>
+      <%= link_to 'Edit', edit_admin_competence_path(competence) %> | 
+    <% end %>
+
+    <% if can? :destroy, competence %>
+      <%= link_to 'Destroy', admin_competence_path(competence), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>  
+    
+  </li>
+<% end %>
+</ul>
+
+
+
+<% if can? :create, Competence %>
+  <%= link_to 'Ajouter une compétence', new_admin_competence_path %> | 
+<% end %>
+<%= link_to "Retour à l'administration", admin_path %>

@@ -1,6 +1,26 @@
 <h1>Editer le contexte</h1>
 
-<%= render 'form' %>
+<%= form_for([:admin,@context]) do |f| %>
+  <% if @context.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context.errors.count, "error") %> prohibited this context from being saved:</h2>
+
+      <ul>
+      <% @context.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %><br />
+    <%= submit_tag("Sauver") %>
+  </p>
+  
+
+<% end %>
 
 
 <% if can? :read, @context %>

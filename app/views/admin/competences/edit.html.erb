@@ -1,0 +1,9 @@
+<h1>Editer la compétence</h1>
+
+<%= render 'form' %>
+
+
+<% if can? :read, @competence %>
+  <%= link_to 'Voir la compétence', admin_competence_path(@competence) %> | 
+<% end %>
+<%= link_to "Retour à l'administration", admin_path %>>

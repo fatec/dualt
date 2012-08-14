@@ -4,6 +4,8 @@ class Competence < ActiveRecord::Base
   has_many :capacities
 
   
+
+  
  has_many :classroom_contexts, :class_name => 'Context'  do 
     def filter(note)
       find(:all, :conditions => {:author_id => note.student})

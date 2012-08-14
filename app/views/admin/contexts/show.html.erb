@@ -14,16 +14,21 @@
 </p>
 
 <p>
-  <b>Compétence:</b>
+  <b>Compétence     :</b>
   <%= @context.competence.name %>
 </p>
+<ul>
+  <% @context.competence.capacities.each do |capacity| %>
+    <li><%= capacity.name %></li>
+  <% end %>
+</ul>
 
 <p>
-  <b>Elèves:</b>
+
   
   
   <%= form_tag( update_individual_notes_admin_context_path(@context), {:method => :put} ) do %>
-  <table>
+  <table class="table table-striped table-bordered">
      <tr>
        <th>Nom</th>
        <th>Note élève</th>
@@ -35,7 +40,7 @@
     <% for note in @notes %>
       <%= fields_for "notes[]", note do |f| %>  
       <tr>
-        <td><%=h note.student.name %></td>
+        <td><%= link_to note.student.name, bilan_path(@context, :student => note.student_id) %></td>
         <td><%=h note.note_eleve %></td>
         <td><%=h note.commentaire_eleve %></td>
         <td><%= f.text_field :note_prof %></td>
@@ -58,4 +63,4 @@
 <% if can? :update, @context %>
   <%= link_to 'Editer le contexte', edit_admin_context_path(@context) %> |
 <% end %>
-<%= link_to "Retour à l'administration", admin_contexts_path %>
+<%= link_to "Retour à la liste des contextes", admin_contexts_path %>
