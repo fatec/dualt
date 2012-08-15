@@ -4,37 +4,71 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
     
+    #########
+    #
+    # STUDENT
+    #
+    #########
     if user.has_role? :student
       can :read, :all
       can :update, :note do |note|
         note.try(:student) == current_user && note.try(:note_eleve) == 0 
       end
       
+      # Un eleve a le droit de modifier sa note
+      can :update_student_note, Note do |note|
+            note.student == user
+      end
+      
       cannot :read, :other_bilan
       cannot :read, Classroom
     end
     
+    
+    #########
+    #
+    # TEACHER
+    #
+    #########
     if user.has_role? :teacher
       can :read, :all
 
       can :create, Context
-      #peut mettre a jour un contexte si il lui appartient
-      can :update, Context do |context|
+      
+      # Un prof ne peut pas modifier la note de l'élève
+      cannot :update_student_note
+      #peut donner une notes aux elève de ses contextes
+      can :update_teacher_note, Note do |note|
+            note.context.teacher == user
+      end
+      #peut donner une notes a tous les elèves de ses contextes
+      can :update_teacher_note, Context do |context|
             context.teacher == user
       end
-      
+
     end
     
+    
+    
+    
+    #########
+    #
+    # ADMIN
+    #
+    #########
     if user.has_role? :admin
       can :manage, :all
+      
       # Pas possible d'effacer les classes qui ont des étudiants
       cannot :destroy, Classroom  do |classroom|
             classroom.students.count != 0
       end
+      # Un prof ne peut pas modifier la note de l'élève
+      cannot :update_student_note
       
       cannot :destroy, Context
-    end
 
+    end
     
     # Define abilities for the passed in user here. For example:
     #

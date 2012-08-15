@@ -1,32 +1,11 @@
-
-<%  if (@note.student_id == current_user.id) %>
-  <p>Vous êtes l'élève <%= current_user.name %></p>
-  <p><%= link_to "Retour au bilan", bilan_index_path %></p>
-<%  end %>
-
-<%  if (@context.teacher_id == current_user.id) %>
-  <p>Vous êtes l'enseignant du contexte </p>
-  <p>
-    <%= link_to "Retour au bilan de l'élève", bilan_index_path(:student => @note.student_id) %> |
-    <%= link_to "Retour administration de la classe", admin_context_path(@context) %>
-  </p>
-<%  end %>
-
-<%  if ((@context.teacher_id != current_user.id) && (current_user.has_role?(:teacher)||current_user.has_role?(:admin))) %>
-  <p>Vous êtes un autre enseignant </p>
-  <p>
-    <%= link_to "Retour au bilan de l'élève", bilan_index_path(:student => @note.student_id) %> |
-    <%= link_to "Retour administration de la classe", admin_classroom_path(@note.student.current_classroom) %>
-  </p>
-<% end %>
-<% if params[:student] %>
-  <% user = User.find(params[:student]) %>
-  <% good_path=bilan_path(@context, :student => user.id) %>
+<% if current_user.has_role?(:teacher) || current_user.has_role?(:admin) %>
+<p>
+  <%= link_to "Retour au bilan de l'élève", bilan_index_path(:eleve => @student) %> |
+  <%= link_to "Retour administration de la classe", admin_context_path(@context) %>
+</p>
 <% else %>
-  <% user = current_user  %>
-  <% good_path=bilan_path(@context) %>
+<p><%= link_to "Retour au bilan", bilan_index_path %></p>
 <% end %>
-
 
 
 <div class="page-header">
@@ -57,7 +36,11 @@
     <ul class="nav nav-pills">
        <% @contexts.each do |context|  %>
         <li <% if @context == context%> class="active"<%	 end %> >
-          <% params[:student] ? path=bilan_path(context, :student => user.id) : path=bilan_path(context) %>
+<% if current_user.has_role?(:teacher) || current_user.has_role?(:admin) %>
+  <% path = bilan_path(context, :eleve => @student) %>
+<% else %>
+  <% path = bilan_path(context) %>
+<% end %>
           <%= link_to context.name, path %>
         </li>
        <% end %>
@@ -67,33 +50,11 @@
   
 <div class="row">
 
-<% if (current_user.has_role?(:teacher)||current_user.has_role?(:admin)) %>
-
   <div class="span6">
-    <p>Note élève : <%= @note.note_eleve_text %></p>
-    <p>Commentaire élève : <%= @note.commentaire_eleve %></p>
-  </div>
-  <div class="span6">
-    <div>
-       <%= simple_form_for(@note, :url => good_path) do |f|%>
-       <p>
-       <%= f.input :note_prof,
-       :collection => [["0", "Sans évaluation"], ["1", "A revoir"], ["2", "Moyen"], ["3", "Bon"]], 
-       :label_method => :last, 
-       :value_method => :first,
-       :label => "Evaluation de l'enseignant",
-       :as => :radio %>
-       <%= f.input :commentaire_prof, :label => "Commentaire de l'enseignant", :input_html => { :rows => 3 }  %>
-       <%= submit_tag("Mettre à jour") %>
-      </p>
-      <% end %>
-    </div>
-  </div>
 
-<% else %>
-
-  <div class="span6">
-    <%= simple_form_for(@note, :html => {:class => 'form-horizontal' }, :url => good_path) do |f|%>
+    
+  <% if can? :update_student_note, @note %>
+    <%= simple_form_for(@note, :html => {:class => 'form-horizontal' }, :url => bilan_path(@context)) do |f|%>
     <p>
       <%= f.input :note_eleve, 
       :collection => [["0", "Sans évaluation"], ["1", "A revoir"], ["2", "Moyen"], ["3", "Bon"]], 
@@ -105,17 +66,49 @@
       <%= submit_tag("Mettre à jour") %>
     </p>
     <% end %>
+  <% else %>  
+    <p>
+      <b>Elève:</b>
+      <%= @student.name %>
+    </p>
+      <p>Note : <%= @note.note_eleve_text %></p>
+      <p>Commentaire : <%= @note.commentaire_eleve %></p>
+
+  <% end %>
   </div>
   <div class="span6">
     <div>
-       <p>Note prof : <%= @note.note_prof_text %></p>
-       <p>Commentaire prof : <%= @note.commentaire_prof %></p>
+      
+      <% if can? :update_teacher_note, @note %>
+      
+       <%= simple_form_for(@note, :url => bilan_path(@context, :eleve => @student)) do |f|%>
+       <p>
+       <%= f.input :note_prof,
+       :collection => [["0", "Sans évaluation"], ["1", "A revoir"], ["2", "Moyen"], ["3", "Bon"]], 
+       :label_method => :last, 
+       :value_method => :first,
+       :label => "Evaluation de l'enseignant",
+       :as => :radio %>
+       <%= f.input :commentaire_prof, :label => "Commentaire de l'enseignant", :input_html => { :rows => 3 }  %>
+       <%= submit_tag("Mettre à jour") %>
+      </p>
+      <% end %>
+      <% else %>
+      
+      <p>
+        <b>Enseignant:</b>
+        <%= @context.teacher.name %>
+      </p>
+      
+        <p>Evaluation: <%= @note.note_prof_text %></p>
+        <p>Commentaire: <%= @note.commentaire_prof %></p>
+      
+    <%  end %>
     </div>
   </div>
 
 
 
-<% end %>
 
 </div>
 

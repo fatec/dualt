@@ -1,14 +1,10 @@
-
-
-
-<%  params[:student] ?  user = User.find(params[:student]) : user = current_user %>
-<% if  (params[:student] && User.find(params[:student]) != current_user) %>
-  <p>Vous êtes <%= current_user.name %> et vous voyez le bilan de <%= user.name %></p>
-  <p><%= link_to "Retour administration de la classe", admin_classroom_path(user.current_classroom) %></p>
+<% if current_user.has_role?(:teacher) || current_user.has_role?(:admin) %>
+<p>
+  <%= link_to "Retour administration de la classe", admin_context_path(@student.current_classroom) %>
+</p>
 <% end %>
 
-
-<h1>Bilan de <%= user.name %></h1>
+<h1>Bilan de <%= @student.name %></h1>
 
 <table class="table table-striped" id="sortTable">
   <thead>
@@ -22,19 +18,24 @@
   <tbody>
     <% @competences.each do |competence| %>
     
-    <% bilan = competence.bilan(user) %>
+    <% if current_user.has_role?(:teacher) || current_user.has_role?(:admin) %>
+      <% path = bilan_path(competence.contexts_by_classroom(@student.current_classroom).first, :eleve => @student) %>
+    <% else %>
+      <% path = bilan_path(competence.contexts_by_classroom(@student.current_classroom).first) %>
+    <% end %>
+                  
+    <% bilan = competence.bilan(@student) %>
      <tr>
-       <% params[:student] ? path=bilan_path(competence.contexts_by_classroom(user.current_classroom).first, :student => user.id) : path=bilan_path(competence.contexts_by_classroom(user.current_classroom).first) %>
        <td><%= link_to competence.name, path %></td>
        <td><span class="badge"><%= bilan[:student][0] %></span> </td>
-       <td> <span class="badge badge-success"><%= bilan[:student][1] %></span>   </td>
+       <td> <span class="badge badge-success"><%= bilan[:student][3] %></span>   </td>
        <td> <span class="badge badge-warning"><%= bilan[:student][2] %></span>   </td>
-       <td>  <span class="badge badge-important"><%= bilan[:student][3] %></span>    </td>
+       <td>  <span class="badge badge-important"><%= bilan[:student][1] %></span>    </td>
        <td></td>
        <td><span class="badge"><%= bilan[:teacher][0] %></span> </td>
-       <td> <span class="badge badge-success"><%= bilan[:teacher][1] %></span>   </td>
+       <td> <span class="badge badge-success"><%= bilan[:teacher][3] %></span>   </td>
        <td> <span class="badge badge-warning"><%= bilan[:teacher][2] %></span>   </td>
-       <td>  <span class="badge badge-important"><%= bilan[:teacher][3] %></span>    </td>
+       <td>  <span class="badge badge-important"><%= bilan[:teacher][1] %></span>    </td>
 
      </tr>
     <% end %>

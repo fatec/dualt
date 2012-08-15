@@ -10,8 +10,7 @@ class HomeController < ApplicationController
       elsif current_user.has_role? :student
         redirect_to bilan_index_url
       end
-    end
-    
+    end 
      @teachers = User.with_role :teacher
      @students = User.with_role :student
      @admins = User.with_role   :admin

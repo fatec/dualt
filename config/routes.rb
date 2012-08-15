@@ -15,6 +15,7 @@ DualtRails3BootstrapDeviseCancan::Application.routes.draw do
     resources :classes, :as => "classrooms"
     resources :competences 
     resources :capacites
+    resources :bilan
  #   resources :notes, :only => [:update]
   end
 

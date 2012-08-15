@@ -119,6 +119,8 @@ before_filter :authenticate_user!
   # PUT /admin/update_individual_notes/1
   # PUT /admin/update_individual_notes/1.json
   def update_individual_notes
+    @context = Context.find(params[:id])
+    authorize! :update_teacher_note, @context
     @notes = Note.update(params[:notes].keys, params[:notes].values).reject { |p| p.errors.empty? }
       
     
