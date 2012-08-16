@@ -80,11 +80,20 @@ class BilanController < ApplicationController
   # PUT /bilan/[context.id]
   def update
     
-    @note = Note.where("context_id = ? AND student_id = ?", params[:id], current_user).first
+    if params[:eleve]
+       @student =  User.find(params[:eleve])
+       path = bilan_path(params[:id], :eleve => @student)
+     else
+       @student = current_user   
+       path = bilan_path(params[:id])
+     end
+    
+    
+    @note = Note.where("context_id = ? AND student_id = ?", params[:id], @student).first
  
     respond_to do |format|
       if @note.update_attributes(params[:note])
-        format.html { redirect_to bilan_path(params[:id], :student => current_user), notice: "note correctement mise à jour" }
+        format.html { redirect_to path, notice: "note correctement mise à jour" }
         format.json { head :ok }
       end
     end
