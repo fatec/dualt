@@ -1,0 +1,11 @@
+<% if params[:type]=="teacher" %>
+  <h1>Nouvel enseignant</h1>
+<% elsif params[:type]=="admin" %>
+    <h1>Nouvel administrateur</h1>
+  <% else %>
+  <h1>Nouvel élève</h1>
+<% end %>
+
+<%= render 'form' %>
+
+<%= link_to "Retour à l'administration", admin_path %>

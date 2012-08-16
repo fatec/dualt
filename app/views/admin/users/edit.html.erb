@@ -1,0 +1,34 @@
+<h1>Editer l'utilisateur</h1>
+
+<%= simple_form_for([:admin,@user]) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this classroom from being saved:</h2>
+      <p><%= debug(params) %></p>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.input :first_name %><br />
+    <%= f.input :last_name %><br />
+    <%= f.input :email %><br />
+    <% if (@user.has_role?(:teacher) || @user.has_role?(:admin)) %>
+      <%= f.collection_check_boxes :role_ids, Role.where("name = 'admin' or name = 'teacher'"), :id, :name , :checked => Role.where("name = 'teacher'").first.id %> 
+    <% else %>
+      <%= f.collection_select :classroom_ids, Classroom.all, :id, :name %>
+    <% end %> <br />  
+    <%= submit_tag("Sauver") %>
+  </p>
+  
+
+<% end %>
+
+
+  <%= link_to "Retour à la liste des utilisateurs", admin_users_path %> |
+  <%= link_to "Retour à l'administration", admin_path %>

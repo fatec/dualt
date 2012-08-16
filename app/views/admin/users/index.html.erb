@@ -1,0 +1,62 @@
+<h1>Liste des classes</h1>
+
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>Nom</th>
+    <th>Prénom</th>
+    <th>Classe</th>
+    <th>Role</th>
+    <th>identifiant</th>
+<% if current_user.has_role?("admin") %>
+    <th></th>
+    <th></th>
+    <th></th>
+<% end %>
+
+
+
+
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.last_name %></td>
+    <td><%= user.first_name %></td>
+    <td><%= user.try(:classrooms).last.try(:name) %></td>
+    <td><% user.roles.each do |role| %>
+          <%= role.name %>
+        <% end %>
+      </td>
+    <td><%= user.email %></td>
+      <td>
+    <% if can? :update, user %>
+      <%= link_to 'Modifier', edit_admin_user_path(user) %>
+    <% end %>
+    </td>
+    <td>
+    <% if can? :update, user %>
+      <%= link_to 'Changer mdp', change_password_admin_user_path(user) %>
+    <% end %>
+    </td>
+    <td>
+    <% if can? :destroy, user %>
+      <%= link_to 'Effacer', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+
+<% if can? :create, User %>
+  <%= link_to 'Ajouter un elève', new_admin_user_path %> | 
+<% end %>
+
+<% if can? :create, User %>
+  <%= link_to 'Ajouter un enseignant', new_admin_user_path(:type => "teacher") %> | 
+<% end %>
+
+
+<%= link_to "Retour à l'administration", admin_path %>
