@@ -16,6 +16,9 @@ DualtRails3BootstrapDeviseCancan::Application.routes.draw do
     resources :competences 
     resources :capacites
     resources :bilan
+    resources :users do
+        get :change_password, :on => :member
+    end
  #   resources :notes, :only => [:update]
   end
 

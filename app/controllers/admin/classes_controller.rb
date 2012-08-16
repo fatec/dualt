@@ -58,7 +58,7 @@ before_filter :authenticate_user!
     respond_to do |format|
       if @classe.save
         format.html { redirect_to admin_classrooms_url, notice: 'Classroom was successfully created.' }
-        format.json { render json: @context, status: :created, location: [:admin,@classe] }
+        format.json { render json: @classe, status: :created, location: [:admin,@classe] }
       else
         format.html { render action: "new" }
         format.json { render json: @classe.errors, status: :unprocessable_entity }
@@ -84,8 +84,8 @@ before_filter :authenticate_user!
      end
     end  
 
-    # DELETE /admin/contexts/1
-    # DELETE /admin/contexts/1.json
+    # DELETE /admin/classes/1
+    # DELETE /admin/classes/1.json
     def destroy
       @classe = Classroom.find(params[:id])
       authorize! :destroy, @classe
