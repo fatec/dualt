@@ -40,7 +40,7 @@ before_filter :authenticate_user!
   # GET /admin/contexts/new.json
   def new
     @context = Context.new
-    authorize! :update, Context
+    authorize! :create, Context
     @competences = Competence.all
     @classrooms = Classroom.all
     @teachers = User.with_role :teacher

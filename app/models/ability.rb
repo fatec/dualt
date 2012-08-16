@@ -34,7 +34,12 @@ class Ability
       can :read, :all
 
       can :create, Context
-      
+
+
+      #peut editer ses contextes
+      can :update, Context do |context|
+            context.teacher == user
+      end
       # Un prof ne peut pas modifier la note de l'élève
       cannot :update_student_note
       #peut donner une notes aux elève de ses contextes

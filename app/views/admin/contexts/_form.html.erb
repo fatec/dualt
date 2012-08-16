@@ -11,13 +11,27 @@
     </div>
   <% end %>
 
-  <p>
+  <p>Competence : <%= @context.competence.name %></p>
+ 
+  <p>Classe : <%= @context.classroom.name %></p>
+  
+  <p>Enseignant : <%= @context.teacher.name %></p> 
+   
+    
+ <p>   
+<%
+=begin%>
     <%= f.label :competence_id %><br />
     <%= f.select :competence_id, options_from_collection_for_select(@competences, "id", "name", @context.competence_id ) %><br />
     <%= f.label :classroom_id %><br />
     <%= f.select :classroom_id, options_from_collection_for_select(@classrooms, "id", "name", @context.classroom_id) %><br />
     <%= f.label :teacher_id %><br />
-    <%= f.select :teacher_id, options_from_collection_for_select(@teachers, "id", "name", @context.teacher_id) %><br />
+    <%= f.select :teacher_id, options_from_collection_for_select(@teachers, "id", "name",  @context.teacher ? @context.teacher_id : current_user.id) %><br />
+<%
+=end%>
+
+
+
     <%= f.label :name %><br />
     <%= f.text_field :name %><br />
     <%= submit_tag("Sauver") %>

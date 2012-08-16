@@ -1,6 +1,32 @@
 <h1>Nouveau contexte</h1>
 
-<%= render 'form' %>
+<%= form_for([:admin,@context]) do |f| %>
+  <% if @context.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@context.errors.count, "error") %> prohibited this context from being saved:</h2>
+
+      <ul>
+      <% @context.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :competence_id %><br />
+    <%= f.select :competence_id, options_from_collection_for_select(@competences, "id", "name", @context.competence_id ) %><br />
+    <%= f.label :classroom_id %><br />
+    <%= f.select :classroom_id, options_from_collection_for_select(@classrooms, "id", "name", @context.classroom_id) %><br />
+    <%= f.label :teacher_id %><br />
+    <%= f.select :teacher_id, options_from_collection_for_select(@teachers, "id", "name",  @context.teacher ? @context.teacher_id : current_user.id) %><br />
+    <%= f.label :name %><br />
+    <%= f.text_field :name %><br />
+    <%= submit_tag("Sauver") %>
+  </p>
+  
+
+<% end %>
 
 <%= link_to "Retour à l'administration", admin_path %>
   
