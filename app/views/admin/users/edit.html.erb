@@ -18,11 +18,22 @@
     <%= f.input :first_name %><br />
     <%= f.input :last_name %><br />
     <%= f.input :email %><br />
-    <% if (@user.has_role?(:teacher) || @user.has_role?(:admin)) %>
+    <% if (@user.has_role?(:teacher) || @user.has_role?(:admin)  ) %>
       <%= f.collection_check_boxes :role_ids, Role.where("name = 'admin' or name = 'teacher'"), :id, :name , :checked => Role.where("name = 'teacher'").first.id %> 
+    <% elsif (@user.roles.empty? && @user.current_classroom.nil?) %>
+        <%= f.collection_check_boxes :role_ids, Role.all, :id, :name  %>
     <% else %>
       <%= f.collection_select :classroom_ids, Classroom.all, :id, :name %>
     <% end %> <br />  
+<%
+=begin
+%>    
+    <% if (current_user.has_role?(:admin)  ) %>
+        <%= f.collection_check_boxes :role_ids, Role.all, :id, :name  %>
+    <% end %>
+<%
+=end
+%>
     <%= submit_tag("Sauver") %>
   </p>
   
