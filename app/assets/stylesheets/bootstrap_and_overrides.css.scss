@@ -7,22 +7,26 @@ padding-top: 60px; }
 @import "bootstrap-responsive";
 
 
-.nav-pills .unevaluated a,
-.nav-pills .unevaluated a:hover {
+.nav .unevaluated a,
+.nav .active.unevaluated a,
+.nav .unevaluated a:hover {
   #  color: #222;
 }
 
-.nav-pills .good a,
-.nav-pills .good a:hover {
+.nav .good a,
+.nav .active.good a,
+.nav .good a:hover {
   color: #51A351;
 }
 
-.nav-pills .average a,
-.nav-pills .average a:hover {
+.nav .average a,
+.nav .active.average a,
+.nav .average a:hover {
   color: #F89406;
 }
 
-.nav-pills .need-work a,
-.nav-pills .need-work a:hover {
+.nav .need-work a,
+.nav .active.need-work a,
+.nav .need-work a:hover {
   color: #BD362F;
 }

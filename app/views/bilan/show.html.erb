@@ -33,20 +33,22 @@
 
 <div class="row">
   <div class="span12">
-    <ul class="nav nav-pills">
+    <ul class="nav  nav-tabs  ">
        <% @contexts.each do |context|  %>
-        <li 
+        <li class="
         <% if  @context == context %>
-          class="active"
-        <% elsif context.note_eleve(@student).note_eleve == 0  %>  
-          class="unevaluated"
-        <% elsif context.note_eleve(@student).note_eleve == 3  %>  
-          class="good"
-        <% elsif context.note_eleve(@student).note_eleve == 2  %>  
-          class="average"
-        <% elsif context.note_eleve(@student).note_eleve == 1  %>  
-          class="need-work"
+          active
         <% end %>
+        <% if context.note_eleve(@student).note_eleve == 0  %>  
+          unevaluated
+        <% elsif context.note_eleve(@student).note_eleve == 3  %>  
+          good
+        <% elsif context.note_eleve(@student).note_eleve == 2  %>  
+          average
+        <% elsif context.note_eleve(@student).note_eleve == 1  %>  
+          need-work
+        <% end %>
+        "
         >  
           
 <% if current_user.has_role?(:teacher) || current_user.has_role?(:admin) %>
