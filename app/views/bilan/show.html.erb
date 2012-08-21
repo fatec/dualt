@@ -35,7 +35,20 @@
   <div class="span12">
     <ul class="nav nav-pills">
        <% @contexts.each do |context|  %>
-        <li <% if @context == context%> class="active"<%	 end %> >
+        <li 
+        <% if  @context == context %>
+          class="active"
+        <% elsif context.note_eleve(@student).note_eleve == 0  %>  
+          class="unevaluated"
+        <% elsif context.note_eleve(@student).note_eleve == 3  %>  
+          class="good"
+        <% elsif context.note_eleve(@student).note_eleve == 2  %>  
+          class="average"
+        <% elsif context.note_eleve(@student).note_eleve == 1  %>  
+          class="need-work"
+        <% end %>
+        >  
+          
 <% if current_user.has_role?(:teacher) || current_user.has_role?(:admin) %>
   <% path = bilan_path(context, :eleve => @student) %>
 <% else %>
@@ -97,7 +110,7 @@
       
       <p>
         <b>Enseignant:</b>
-        <%= @context.teacher.name %>
+        <%= @context.teacher.try(:name) %>
       </p>
       
         <p>Evaluation: <%= @note.note_prof_text %></p>
